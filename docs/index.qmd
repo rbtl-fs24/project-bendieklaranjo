@@ -1,0 +1,31 @@
+# This is a placeholder for my final report
+```{r}
+
+# load libraries -------------------------------------
+
+library(gapminder)
+library(tidyverse)
+library(dplyr)
+library(googlesheets4)
+
+waste_streams_zh_summary <- read_csv(file = "/cloud/project/data/processed/waste-streams_zh_processed.csv")
+
+# Tables
+## Mean weight per waste category
+
+| label: tbl-waste_cat-mean
+| tbl-cap: "Mean values per waste category"
+
+waste_streams_zh_meanwaste <- waste_streams_zh_summary %>%
+  group_by(waste_category) %>%
+  summarise(mean = mean(weight),
+            n = n())
+
+# results display as table
+waste_streams_zh_meanwaste %>%
+  knitr::kable(digits = 0)
+
+# save data underlying the table
+
+write_csv(waste_streams_zh_meanwaste, "/cloud/project/data/final/2024-04-11-waste-streams_zh_meanwaste.csv")
+
