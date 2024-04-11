@@ -1,0 +1,6 @@
+variable name,description
+Bin_ID,ID of the specific bin according to the following structure SPACEABBREVIATION_Number
+Date,Date of the data collection
+Space,Location of the data collection
+waste_category,"Waste category, has to be one of the follwoing options: paper, plastic, glass, metal. organic, other, sum"
+weight,weight of the waste in kg
