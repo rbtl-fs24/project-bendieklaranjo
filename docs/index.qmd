@@ -32,7 +32,78 @@ library(googlesheets4)
 
 ## Introduction
 
+The survey's main research question is:
+
+How do professionals in the architecture, engineering, and construction
+(AEC) industries in the DACH region adopt digital twins and circular
+strategies, and what is the potential for digital twins to support
+circular construction practices?
+
+To answer the main research question, three initial research questions
+are guiding the study:
+
+-   **RQ1:** What is the current level of adoption of digital twins
+    among AEC professionals in the DACH region?
+
+-   **RQ2:** To what extent are circular economy strategies currently
+    being adopted and implemented by AEC professionals in the DACH
+    region?
+
+-   **RQ3:** How do AEC professionals in the DACH region envision the
+    potential of digital twins to support and enhance circular
+    construction practices?
+
+Current research on this topic includes 
+
+1.  defining “Digital Twins” on a general and industry-specific level
+    [(Grieves, 2015; Thelen et al.,
+    2022)](https://www.zotero.org/google-docs/?TZ848a)
+
+2.  the identification of (potential) applications of Digital Twins in
+    the construction sector [(Davila Delgado and Oyedele, 2021; Ammar et
+    al., 2022; Araújo et al., 2022; AlBalkhy et al.,
+    2024)](https://www.zotero.org/google-docs/?XEJlyF)
+
+3.  the potential applications of Digital Twins for circular strategies
+    in construction [(Meng, Das and Meng,
+    2023)](https://www.zotero.org/google-docs/?H2cgcw) and other
+    industries [(Preut, Kopka and Clausen, 2021; Mügge et al.,
+    2024)](https://www.zotero.org/google-docs/?8TzmjP)
+
+These research studies denote significant progress in understanding the
+applications of digital twins (DT) in the AEC industries. Nevertheless,
+a significant knowledge gap remains regarding the real-world DT adoption
+levels in the AEC industry. DT adoption encompasses the awareness,
+understanding, and acceptance among industry stakeholders.
+
+Evaluating awareness levels involves determining how individuals and
+organizations within the BE sector know the DT concept and its potential
+benefits. Understanding levels refer to the depth of comprehension
+regarding the intricacies and implications of DT implementation. This
+research aspect also covers identifying the skills required to build DT
+systems. Acceptance involves examining the willingness of stakeholders
+to adopt DT technologies and integrate them into their operational
+frameworks.
+
+This research is exploratory and aims to set a precedent for future
+industry adoption.
+
 ## Methods
+
+The study is designed as an online survey, with data being collected
+through a survey platform. This approach allows the researchers to gain
+insights into the state of the industry in different geographic
+locations, particularly in relation to the adoption of new technologies.
+
+The study will be conducted transparently, with no incomplete disclosure
+of information or deception involved. Participants will be provided with
+a link to the survey, which they can access via email or LinkedIn. They
+can choose to complete the survey from any location they prefer.
+
+Participants will be free to stop the survey at any time, ensuring their
+autonomy and voluntary participation. Data collection will be
+facilitated through the use of Google Forms or Qualtrics, two widely
+used survey platforms.
 
 ## Figures
 

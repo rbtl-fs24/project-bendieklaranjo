@@ -3083,12 +3083,13 @@ vertical-align: -.125em;
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
   <li><a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures">Figures</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   <li><a href="#template" id="toc-template" class="nav-link" data-scroll-target="#template">Template</a>
   <ul class="collapse">
   <li><a href="#mean-weight-per-waste-category" id="toc-mean-weight-per-waste-category" class="nav-link" data-scroll-target="#mean-weight-per-waste-category">Mean weight per waste category</a></li>
   </ul></li>
-  <li><a href="#results-display-as-table" id="toc-results-display-as-table" class="nav-link" data-scroll-target="#results-display-as-table">results display as table</a></li>
+  <li><a href="#results-display-as-a-table" id="toc-results-display-as-a-table" class="nav-link" data-scroll-target="#results-display-as-a-table">results display as a table</a></li>
   <li><a href="#save-data-underlying-the-table" id="toc-save-data-underlying-the-table" class="nav-link" data-scroll-target="#save-data-underlying-the-table">save data underlying the table</a>
   <ul class="collapse">
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
@@ -3141,15 +3142,38 @@ vertical-align: -.125em;
 <hr>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The survey’s main research question is:</p>
+<p>How do professionals in the architecture, engineering, and construction (AEC) industries in the DACH region adopt digital twins and circular strategies, and what is the potential for digital twins to support circular construction practices?</p>
+<p>To answer the main research question, three initial research questions are guiding the study:</p>
+<ul>
+<li><p><strong>RQ1:</strong> What is the current level of adoption of digital twins among AEC professionals in the DACH region?</p></li>
+<li><p><strong>RQ2:</strong> To what extent are circular economy strategies currently being adopted and implemented by AEC professionals in the DACH region?</p></li>
+<li><p><strong>RQ3:</strong> How do AEC professionals in the DACH region envision the potential of digital twins to support and enhance circular construction practices?</p></li>
+</ul>
+<p>Current research on this topic includes </p>
+<ol type="1">
+<li><p>defining “Digital Twins” on a general and industry-specific level <a href="https://www.zotero.org/google-docs/?TZ848a">(Grieves, 2015; Thelen et al., 2022)</a></p></li>
+<li><p>the identification of (potential) applications of Digital Twins in the construction sector <a href="https://www.zotero.org/google-docs/?XEJlyF">(Davila Delgado and Oyedele, 2021; Ammar et al., 2022; Araújo et al., 2022; AlBalkhy et al., 2024)</a></p></li>
+<li><p>the potential applications of Digital Twins for circular strategies in construction <a href="https://www.zotero.org/google-docs/?H2cgcw">(Meng, Das and Meng, 2023)</a> and other industries <a href="https://www.zotero.org/google-docs/?8TzmjP">(Preut, Kopka and Clausen, 2021; Mügge et al., 2024)</a></p></li>
+</ol>
+<p>These research studies denote significant progress in understanding the applications of digital twins (DT) in the AEC industries. Nevertheless, a significant knowledge gap remains regarding the real-world DT adoption levels in the AEC industry. DT adoption encompasses the awareness, understanding, and acceptance among industry stakeholders.</p>
+<p>Evaluating awareness levels involves determining how individuals and organizations within the BE sector know the DT concept and its potential benefits. Understanding levels refer to the depth of comprehension regarding the intricacies and implications of DT implementation. This research aspect also covers identifying the skills required to build DT systems. Acceptance involves examining the willingness of stakeholders to adopt DT technologies and integrate them into their operational frameworks.</p>
+<p>This research is exploratory and aims to set a precedent for future industry adoption.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>The study is designed as an online survey, with data being collected through a survey platform. This approach allows the researchers to gain insights into the state of the industry in different geographic locations, particularly in relation to the adoption of new technologies.</p>
+<p>The study will be conducted transparently, with no incomplete disclosure of information or deception involved. Participants will be provided with a link to the survey, which they can access via email or LinkedIn. They can choose to complete the survey from any location they prefer.</p>
+<p>Participants will be free to stop the survey at any time, ensuring their autonomy and voluntary participation. Data collection will be facilitated through the use of Google Forms or Qualtrics, two widely used survey platforms.</p>
 </section>
 <section id="figures" class="level2">
 <h2 class="anchored" data-anchor-id="figures">Figures</h2>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 </section>
 </section>
 <section id="template" class="level1">
@@ -3161,8 +3185,8 @@ tbl-cap: “Mean values per waste category”<br>
 waste_streams_zh_meanwaste &lt;- waste_streams_zh_summary %&gt;% group_by(waste_category) %&gt;% summarise(mean = mean(weight), n = n())</div>
 </section>
 </section>
-<section id="results-display-as-table" class="level1">
-<h1>results display as table</h1>
+<section id="results-display-as-a-table" class="level1">
+<h1>results display as a table</h1>
 <p>waste_streams_zh_meanwaste %&gt;% knitr::kable(digits = 0)</p>
 </section>
 <section id="save-data-underlying-the-table" class="level1">
