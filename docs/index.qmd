@@ -1,31 +1,60 @@
-# This is a placeholder for my final report
+---
+title: "Final Report"
+author: "Ana Bendiek Laranjo"
+date: "05-30-2024"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+editor_options: 
+  chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Final Report
+
+Load libraries
+
 ```{r}
-
-# load libraries -------------------------------------
-
-library(gapminder)
+#| label: setup}
 library(tidyverse)
+library(gapminder)
 library(dplyr)
 library(googlesheets4)
+  
+```
 
-waste_streams_zh_summary <- read_csv(file = "/cloud/project/data/processed/waste-streams_zh_processed.csv")
+------------------------------------------------------------------------
 
-# Tables
+## Introduction
+
+## Methods
+
+## Figures
+
+## Conclusions
+
+## References
+
+# Template
+
 ## Mean weight per waste category
 
 | label: tbl-waste_cat-mean
 | tbl-cap: "Mean values per waste category"
+| waste_streams_zh_meanwaste \<- waste_streams_zh_summary %\>% group_by(waste_category) %\>% summarise(mean = mean(weight), n = n())
 
-waste_streams_zh_meanwaste <- waste_streams_zh_summary %>%
-  group_by(waste_category) %>%
-  summarise(mean = mean(weight),
-            n = n())
+# results display as a table
 
-# results display as table
-waste_streams_zh_meanwaste %>%
-  knitr::kable(digits = 0)
+waste_streams_zh_meanwaste %\>% knitr::kable(digits = 0)
 
 # save data underlying the table
 
-write_csv(waste_streams_zh_meanwaste, "/cloud/project/data/final/2024-04-11-waste-streams_zh_meanwaste.csv")
+write_csv(waste_streams_zh_meanwaste,
+"/cloud/project/data/final/2024-04-11-waste-streams_zh_meanwaste.csv")
 
+## 

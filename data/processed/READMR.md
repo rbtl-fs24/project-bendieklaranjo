@@ -8,17 +8,11 @@
 
 **Author A**
 
-- First name:
-- Surname:
-- ORCID iD
-- Email:
+- First name: Ana
+- Surname: Bendiek Laranjo
+- ORCID iD: 
+- Email: abendiek@ethz.ch
 
-**Author B**
-
-- First name:
-- Surname:
-- ORCID iD
-- Email:
 
 etc.
 
