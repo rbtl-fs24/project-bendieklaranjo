@@ -15,8 +15,6 @@ editor:
     wrap: 72
 ---
 
-# Final Report
-
 Load libraries
 
 ```{r}
@@ -30,7 +28,7 @@ library(googlesheets4)
 
 ------------------------------------------------------------------------
 
-## Introduction
+# Introduction
 
 The survey's main research question is:
 
@@ -88,7 +86,9 @@ frameworks.
 This research is exploratory and aims to set a precedent for future
 industry adoption.
 
-## Methods
+# Methods
+
+## Data collection
 
 The study is designed as an online survey, with data being collected
 through a survey platform. This approach allows the researchers to gain
@@ -105,11 +105,36 @@ autonomy and voluntary participation. Data collection will be
 facilitated through the use of Google Forms or Qualtrics, two widely
 used survey platforms.
 
-## Figures
+## Participants
 
-## Conclusions
+The study is limited to people in the Architecture, Engineering, and
+Construction (AEC) industry in Germany, Austria, and Switzerland. The
+researchers expect a minimum of 30 participants (10 participants per
+country) for the study, which would still provide valuable insights to
+report on. At the same time, a reasonable upper limit for the number of
+participants is set at around 10% of the population size or a maximum of
+1000 per included country (Austria, Germany, Switzerland), as the survey
+will be distributed to a few professional working groups focused on
+similar topics.
 
-## References
+The general inclusion criteria for the study will be based on the
+participants' actual work experience in the architecture, engineering,
+and construction industries. Initial questions will also assess their
+knowledge and experience in areas such as digital twins and the circular
+economy.
+
+While the questions about the targeted, relevant experience will not
+necessarily be used to exclude participants, they will help qualify the
+potential responses and provide more context for the researchers to
+interpret the data. Furthermore, information regarding the sex and
+gender of the participants will be requested to conduct sex—and
+gender-based analyses (SGBA).
+
+# Figures
+
+# Conclusions
+
+# References
 
 # Template
 
