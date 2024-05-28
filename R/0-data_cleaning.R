@@ -5,7 +5,10 @@ library(dplyr)
 eth_dep_sus_visibility_cleaning <- read_csv("data/raw/eth_dep_sus_visibility_raw.csv")
 glimpse(eth_dep_sus_visibility_cleaning)
 
-#Data cleaning
+#Data organisation
+eth_dep_sus_visibility_cleaning %>% 
+  arrange(Timestamp)
+
 
 
 
