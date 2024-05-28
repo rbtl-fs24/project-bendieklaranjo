@@ -1,11 +1,26 @@
 ---
 title: "Final Report"
-author: "Ana Bendiek Laranjo"
 date: "05-30-2024"
+author:
+  - name: Ana Bendiek Laranjo
+    orcid: 0009-0006-1720-6031
+    email: abendiek@ethz.ch
+    affiliation: 
+      - name: ETH Zurich
+        url: https://ethz.ch/de.html
+abstract: 
+  The abstract will be placed here. Breaks can be added by hitting return on the keyboard.
+license: "CC BY"
+citation: 
+  container-title: My Blog
+  url: https://www.example.com
+bibliography: references.bib
+csl: apa.csl
 format:
   html:
     embed-resources: true
     toc: true
+pdf: default
 execute:
   warning: false
 editor_options: 
@@ -14,17 +29,6 @@ editor:
   markdown: 
     wrap: 72
 ---
-
-Load libraries
-
-```{r}
-#| label: setup}
-library(tidyverse)
-library(gapminder)
-library(dplyr)
-library(googlesheets4)
-  
-```
 
 ------------------------------------------------------------------------
 
@@ -130,27 +134,10 @@ interpret the data. Furthermore, information regarding the sex and
 gender of the participants will be requested to conduct sex—and
 gender-based analyses (SGBA).
 
-# Figures
+# Results
+## Figures
+## Tables
 
 # Conclusions
 
 # References
-
-# Template
-
-## Mean weight per waste category
-
-| label: tbl-waste_cat-mean
-| tbl-cap: "Mean values per waste category"
-| waste_streams_zh_meanwaste \<- waste_streams_zh_summary %\>% group_by(waste_category) %\>% summarise(mean = mean(weight), n = n())
-
-# results display as a table
-
-waste_streams_zh_meanwaste %\>% knitr::kable(digits = 0)
-
-# save data underlying the table
-
-write_csv(waste_streams_zh_meanwaste,
-"/cloud/project/data/final/2024-04-11-waste-streams_zh_meanwaste.csv")
-
-## 
