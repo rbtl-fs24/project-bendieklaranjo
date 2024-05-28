@@ -2,7 +2,7 @@
 
 ## General information
 
-1.  Title of Dataset:  
+1.  Title of Dataset: eth_dep_sus_visibility 
 
 2.  Author Information
 
@@ -10,32 +10,30 @@
 
 - First name: Ana
 - Surname: Bendiek Laranjo
-- ORCID iD: 
+- ORCID iD: 0009-0006-1720-603
 - Email: abendiek@ethz.ch
 
 
-etc.
+3.  Date of data collection (single date, range, approximate date): 24.05.2024-29.05.2024
 
-3.  Date of data collection (single date, range, approximate date):
-
-4.  Geographic location of data collection:
+4.  Geographic location of data collection:The data was collected in an online survey. The project leas is located in Zurich, Switzerland.
 
 5.  Information about funding sources that supported the collection of
-    the data: 
+    the data: The data was collected for the module "151-8102-00L Research Beyond the Lab: Open Science and Research Methods for a Global Engineer at ETH" and received no further funding.
 
 ## Sharing / access information
 
 1.  Licenses/restrictions placed on the data:  
 
-Recommended: This work is licensed under the Creative Commons Attribution 4.0 International license (CC-BY-4.0).
+This work is licensed under the Creative Commons Attribution 4.0 International license (CC-BY-4.0).
 
-2.  Links to publications that cite or use the data: 
+2.  Links to publications that cite or use the data: -
 
 3.  Links to other publicly accessible locations of the data: -
 
-4.  Links/relationships to ancillary data sets: 
+4.  Links/relationships to ancillary data sets: - 
 
-5.  Was data derived from another source? 
+5.  Was data derived from another source? No.
 
 ## Methodological information
 

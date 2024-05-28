@@ -24,6 +24,7 @@ format:
 pdf: default
 execute:
   warning: false
+  message: false
 editor: 
   markdown: 
     wrap: 72
