@@ -1,6 +1,7 @@
 library(tidyverse)
 library(googlesheets4)
 library(dplyr)
+library(ggplot2)
 
 #Data import
 eth_dep_sus_visibility_cleaning <- read_csv("data/raw/eth_dep_sus_visibility_raw.csv")
@@ -58,7 +59,6 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
     email_info = `If you would like to receive more information of the survey outcome, please insert your email-address.`
   )
 
-#Data cleaning
 ## Adding of participant ID
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>% 
   mutate(id=1:n()) %>% 
@@ -72,11 +72,23 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   relocate(time, .before = consent) %>% 
   relocate(date, .before = time)
 
-# Elimination of columns with high proportion of missing values (e.g., more than 50%)
+##Elimination of columns with high proportion of missing values (more than 50%)
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   select(-matches("know_eth_sus_work", "learn_eth_sus"))
 
-#Data selection for visualisations
+# Visualisation
 
+## Subset the data for awareness of ETH Sustainability Department and Net Zero Initiative
+awareness_dep_net_zero <- subset(eth_dep_sus_visibility_cleaning, select = c("heard_eth_sus", "heard_net_zero"))
 
-glimpse(eth_dep_sus_visibility_cleaning)
+## Reshape the data for visualization
+awareness_data_long <- tidyr::gather(awareness_dep_net_zero, key = "Initiative", value = "Awareness", heard_eth_sus:heard_net_zero)
+
+# Subset the data for Net Zero measures
+net_zero_measures <- eth_dep_sus_visibility_cleaning %>%
+  select(starts_with("Heard_")) %>%
+  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
+  gather(key = "Measure", value = "Percentage")
+
+# Store data
+#write_csv(eth_dep_sus_visibility_cleaning, "data/processed/eth_dep_sus_visibility_processed.csv")

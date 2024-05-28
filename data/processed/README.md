@@ -39,10 +39,9 @@ This work is licensed under the Creative Commons Attribution 4.0 International l
 
 1.  Description of methods used for collection/generation of data:
 
-2.  Methods for processing the data:
+2.  Methods for processing the data: Data processing involved cleaning and formatting the survey responses using R programming language and dplyr package.
 
-3.  Instrument- or software-specific information needed to interpret the
-    data: 
+3.  Instrument- or software-specific information needed to interpret the data: 
 
 4.  Standards and calibration information, if appropriate: -
 
@@ -51,5 +50,5 @@ This work is licensed under the Creative Commons Attribution 4.0 International l
 6.  Describe any quality-assurance procedures performed on the data: 
 
 7.  People involved with sample collection, processing, analysis and/or
-    submission:
+    submission: Ana Bendiek Laranjo
 

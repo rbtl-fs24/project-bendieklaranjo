@@ -137,6 +137,16 @@ gender of the participants will be requested to conduct sex—and
 gender-based analyses (SGBA).
 
 # Results
+# Plot
+ggplot(awareness_data_long, aes(x = Initiative, fill = Awareness)) +
+  geom_bar(position = "fill") +
+  labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
+       x = "Initiative",
+       y = "Percentage",
+       fill = "Awareness") +
+  scale_fill_manual(values = c("Yes" = "green", "No" = "red")) +
+  theme_minimal()
+  
 ## Figures
 ## Tables
 
