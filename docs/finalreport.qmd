@@ -20,14 +20,15 @@ format:
   html:
     embed-resources: true
     toc: true
+    
 pdf: default
 execute:
   warning: false
-editor_options: 
-  chunk_output_type: console
 editor: 
   markdown: 
     wrap: 72
+editor_options: 
+  chunk_output_type: console
 ---
 
 ------------------------------------------------------------------------
@@ -141,3 +142,4 @@ gender-based analyses (SGBA).
 # Conclusions
 
 # References
+In @tilley2021my, the authors describe how visitors still expect a personal pick-up, despite the availability of taxi services
