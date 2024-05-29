@@ -137,15 +137,30 @@ gender-based analyses (SGBA).
 
 # Results
 
-```{r}
+```{r setup, include=FALSE}
+library(tidyverse)
+library(googlesheets4)
+library(dplyr)
 library(ggplot2)
 ```
 
-## Figures
-### Awareness of ETH Sustainability Department and Net Zero Initiative
 
+## Figures
+### Awareness of ETH Sustainability Department and its initiatives
 ```{r}
-ggplot(awareness_summary, aes(x = Initiative, y = Percentage, fill = Initiative)) +
+## Which initiative is the most known?
+eth_dep_sus_visibility_visual <- read_csv("data/processed/eth_dep_sus_visibility_processed.csv")
+
+# data analysis --------------------------------------
+
+awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
+  select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
+  summarise_all(~ mean(. == "Yes", na.rm = TRUE) * 100) %>%
+  pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Percentage")
+
+# results display as visualisation ---------------------------
+
+ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Percentage, fill = Initiative)) +
   geom_bar(stat = "identity") +
   labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
        x = "Initiative",
@@ -153,12 +168,23 @@ ggplot(awareness_summary, aes(x = Initiative, y = Percentage, fill = Initiative)
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# save data underlying the table ----------------------
+write_csv(awareness_dep_sus_ini, "data/final/awareness_department_initiatives.csv")
 ```
 
 ### Awareness of Net Zero measures
 
 ```{r}
-ggplot(net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
+## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
+
+# data analysis --------------------------------------
+awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
+  select(starts_with("heard_measure_")) %>%
+  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
+  gather(key = "Measure", value = "Percentage")
+
+# results display as visualisation --------------------------------------
+ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Awareness of Net Zero Measures",
        x = "Percentage",
@@ -166,18 +192,35 @@ ggplot(net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)
        fill = "Awareness") +
   coord_flip() +
   theme_minimal()
+
+# save data underlying the table ----------------------
+write_csv(awareness_net_zero_measures, "data/final/awareness_net_zero_measures.csv")
 ```
 
 ### What is the most effective information channel?
 
 ```{r}
-ggplot(learning_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
+
+## What information channel was the most effective?
+# data analysis --------------------------------------
+net_zero_learning <- eth_dep_sus_visibility_visual %>%
+  filter(!is.na(learn_net_zero)) %>%
+  filter(heard_net_zero == "Yes")
+
+net_zero_info_channel_count <- net_zero_learning %>%
+  count(learn_net_zero) %>%
+  arrange(desc(n))
+
+# results display as visualisation --------------------------------------
+ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
-       x = "Learning Channel",
+       x = "Information Channel",
        y = "Frequency") +
-  coord_flip() 
+  coord_flip()
 
+# save data underlying the table ----------------------
+write_csv(net_zero_info_channel_count, "data/final/net_zero_info_channel.csv")
 ```
 
 ### What is the most promising information channel to increase the visibility?
