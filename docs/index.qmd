@@ -20,7 +20,7 @@ format:
   html:
     embed-resources: true
     toc: true
-    
+    code-fold: true
 pdf: default
 execute:
   warning: false
@@ -142,6 +142,7 @@ library(tidyverse)
 library(googlesheets4)
 library(dplyr)
 library(ggplot2)
+
 ```
 
 
@@ -149,7 +150,7 @@ library(ggplot2)
 ### Awareness of ETH Sustainability Department and its initiatives
 ```{r}
 ## Which initiative is the most known?
-eth_dep_sus_visibility_visual <- read_csv("data/processed/eth_dep_sus_visibility_processed.csv")
+eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
 
 # data analysis --------------------------------------
 
@@ -169,7 +170,7 @@ ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Percentage, fill = 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # save data underlying the table ----------------------
-write_csv(awareness_dep_sus_ini, "data/final/awareness_department_initiatives.csv")
+write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
 ```
 
 ### Awareness of Net Zero measures
@@ -194,7 +195,7 @@ ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = P
   theme_minimal()
 
 # save data underlying the table ----------------------
-write_csv(awareness_net_zero_measures, "data/final/awareness_net_zero_measures.csv")
+write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
 ```
 
 ### What is the most effective information channel?
@@ -220,7 +221,7 @@ ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = 
   coord_flip()
 
 # save data underlying the table ----------------------
-write_csv(net_zero_info_channel_count, "data/final/net_zero_info_channel.csv")
+write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
 ```
 
 ### What is the most promising information channel to increase the visibility?
