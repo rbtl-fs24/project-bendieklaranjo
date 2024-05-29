@@ -1,5 +1,6 @@
 ---
 title: "Final Report"
+subtitle: "What is the current level of awareness among ETH members regarding the work of and services provided by the ETH Sustainability department, and how could it be improved?"
 date: "05-30-2024"
 author:
   - name: Ana Bendiek Laranjo
@@ -160,7 +161,9 @@ awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
   pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Percentage")
 
 # results display as visualisation ---------------------------
-
+#| label: fig-awareness
+#| fig-cap: Awareness of ETH Sustainability Department and its initiatives among ETH domain members.
+#| warning: false
 ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Percentage, fill = Initiative)) +
   geom_bar(stat = "identity") +
   labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
