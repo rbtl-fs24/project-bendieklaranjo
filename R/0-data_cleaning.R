@@ -76,53 +76,83 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   select(-matches("know_eth_sus_work", "learn_eth_sus"))
 
+##Converting notice_eth_sus_work in long format
 
-# Visualization
+
+
+# Data preparation for visualization
+
 ## Subset the data for awareness of ETH Sustainability Department and its Initiatives
+## Which initiative is the most known?
+
 awareness_summary <- eth_dep_sus_visibility_cleaning %>%
   select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
   summarise_all(~ mean(. == "Yes", na.rm = TRUE) * 100) %>%
   pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Percentage")
 
-# Subset the data for individual Net Zero measures
+
+## Subset the data for individual Net Zero measures
 ## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
+
 net_zero_measures <- eth_dep_sus_visibility_cleaning %>%
   select(starts_with("heard_measure_")) %>%
   summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
   gather(key = "Measure", value = "Percentage")
 
-#Subset the data for interest in climate change mitigation
-## Define the labels for the interest levels
-interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
+## What information channel was the most effective?
 
-## Create a factor with the specified labels
+net_zero_learning <- eth_dep_sus_visibility_cleaning %>%
+  filter(!is.na(learn_net_zero)) %>%
+  filter(heard_net_zero == "Yes")
+
+learning_channel_count <- net_zero_learning %>%
+  count(learn_net_zero) %>%
+  arrange(desc(n))
+
+
+##Subset the data for interest in climate change mitigation
+
+interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
 eth_dep_sus_visibility_cleaning$Interest <- factor(eth_dep_sus_visibility_cleaning$interest_sustainability, levels = 1:6, labels = interest_labels)
 
-# Count the total number of responses
 total_responses <- nrow(eth_dep_sus_visibility_cleaning)
 
-# Calculate the percentage of each interest level
 interest_percent <- eth_dep_sus_visibility_cleaning %>%
   count(Interest) %>%
   mutate(Percentage = n / total_responses * 100) %>%
   complete(Interest = interest_labels, fill = list(n = 0, Percentage = 0))
 
-#Subset the data for importance of ETH-wide sustainability strategy
-## Define the labels for the importance levels
+##Subset the data for importance of ETH-wide sustainability strategy
+
 importance_labels <- c("Not important", "Slightly important", "Moderately important", "Neutral", "Important", "Very important")
-
-## Create a factor with the specified labels
 eth_dep_sus_visibility_cleaning$ImportanceStrategyt <- factor(eth_dep_sus_visibility_cleaning$importance_eth_strategy, levels = 1:6, labels = importance_labels)
-
-# Count the total number of responses
 total_responses <- nrow(eth_dep_sus_visibility_cleaning)
 
-# Calculate the percentage of each importance level
 importance_percent <- eth_dep_sus_visibility_cleaning %>%
   count(ImportanceStrategyt) %>%
   mutate(Percentage = n / total_responses * 100) %>%
   complete(ImportanceStrategyt = importance_labels, fill = list(n = 0, Percentage = 0))
 
+##Subset the data for interest in climate change mitigation
+
+interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
+eth_dep_sus_visibility_cleaning$Interest <- factor(eth_dep_sus_visibility_cleaning$interest_sustainability, levels = 1:6, labels = interest_labels)
+
+interest_percent <- eth_dep_sus_visibility_cleaning %>%
+  count(Interest) %>%
+  mutate(Percentage = n / total_responses * 100) %>%
+  complete(Interest = interest_labels, fill = list(n = 0, Percentage = 0))
+
+#Subset the data for interest in climate change mitigation
+
+visibility_labels <- c("Not visible at all", "Slightly visible", "Moderately visible", "Neutral", "Visible", "Very visible")
+eth_dep_sus_visibility_cleaning$Visibility_general <- factor(eth_dep_sus_visibility_cleaning$vis_eth_sus_work, levels = 1:6, labels = visibility_labels)
+vis_general_percent <- eth_dep_sus_visibility_cleaning %>%
+  count(Visibility_general) %>%
+  mutate(Percentage = n / total_responses * 100) %>%
+  complete(Visibility_general = visibility_labels, fill = list(n = 0, Percentage = 0))
+
 glimpse(eth_dep_sus_visibility_cleaning)
+
 # Store data
 # write_csv(eth_dep_sus_visibility_cleaning, "data/processed/eth_dep_sus_visibility_processed.csv")
