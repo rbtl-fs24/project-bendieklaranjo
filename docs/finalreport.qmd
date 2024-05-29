@@ -137,7 +137,16 @@ gender of the participants will be requested to conduct sex—and
 gender-based analyses (SGBA).
 
 # Results
-# Plot
+
+```{r}
+library(ggplot2)
+```
+
+## Figures
+
+### Awareness of ETH Sustainability Department and Net Zero Initiative
+
+```{r}
 ggplot(awareness_data_long, aes(x = Initiative, fill = Awareness)) +
   geom_bar(position = "fill") +
   labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
@@ -146,11 +155,40 @@ ggplot(awareness_data_long, aes(x = Initiative, fill = Awareness)) +
        fill = "Awareness") +
   scale_fill_manual(values = c("Yes" = "green", "No" = "red")) +
   theme_minimal()
-  
-## Figures
+```
+
+### Awareness of Net Zero measures
+
+```{r}
+ggplot(net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Awareness of Net Zero Measures",
+       x = "Percentage",
+       y = "Measure",
+       fill = "Awareness") +
+  coord_flip() +
+  theme_minimal()
+```
+
+### Interest in Sustainability and Importance of ETH-wide Sustainability Strategy
+
+# Plot the distribution of interest in climate change mitigation
+
+```{r}
+ggplot(interest_percent, aes(x = Interest, y = Percentage)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Interest in Climate Change Mitigation",
+       x = "Interest Level",
+       y = "Percentage")
+```
+
+
+
 ## Tables
 
 # Conclusions
 
 # References
-In @tilley2021my, the authors describe how visitors still expect a personal pick-up, despite the availability of taxi services
+
+In @tilley2021my, the authors describe how visitors still expect a
+personal pick-up, despite the availability of taxi services

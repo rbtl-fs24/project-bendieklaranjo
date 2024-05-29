@@ -3051,6 +3051,9 @@ vertical-align: -.125em;
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
+  <li><a href="#awareness-of-eth-sustainability-department-and-net-zero-initiative" id="toc-awareness-of-eth-sustainability-department-and-net-zero-initiative" class="nav-link" data-scroll-target="#awareness-of-eth-sustainability-department-and-net-zero-initiative">Awareness of ETH Sustainability Department and Net Zero Initiative</a></li>
+  <li><a href="#awareness-of-net-zero-measures" id="toc-awareness-of-net-zero-measures" class="nav-link" data-scroll-target="#awareness-of-net-zero-measures">Awareness of Net Zero measures</a></li>
+  <li><a href="#interest-in-sustainability-and-importance-of-eth-wide-sustainability-strategy" id="toc-interest-in-sustainability-and-importance-of-eth-wide-sustainability-strategy" class="nav-link" data-scroll-target="#interest-in-sustainability-and-importance-of-eth-wide-sustainability-strategy">Interest in Sustainability and Importance of ETH-wide Sustainability Strategy</a></li>
   <li><a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures">Figures</a></li>
   <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
   </ul></li>
@@ -3145,6 +3148,18 @@ vertical-align: -.125em;
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<section id="awareness-of-eth-sustainability-department-and-net-zero-initiative" class="level2">
+<h2 class="anchored" data-anchor-id="awareness-of-eth-sustainability-department-and-net-zero-initiative">Awareness of ETH Sustainability Department and Net Zero Initiative</h2>
+<p>ggplot(awareness_data_long, aes(x = Initiative, fill = Awareness)) + geom_bar(position = “fill”) + labs(title = “Awareness of ETH Sustainability Department and Net Zero Initiative”, x = “Initiative”, y = “Percentage”, fill = “Awareness”) + scale_fill_manual(values = c(“Yes” = “green”, “No” = “red”)) + theme_minimal()</p>
+</section>
+<section id="awareness-of-net-zero-measures" class="level2">
+<h2 class="anchored" data-anchor-id="awareness-of-net-zero-measures">Awareness of Net Zero measures</h2>
+<p>ggplot(net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) + geom_bar(stat = “identity”, fill = “skyblue”) + labs(title = “Awareness of Net Zero Measures”, x = “Measure”, y = “Percentage”, fill = “Awareness”) + coord_flip() + theme_minimal()</p>
+</section>
+<section id="interest-in-sustainability-and-importance-of-eth-wide-sustainability-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="interest-in-sustainability-and-importance-of-eth-wide-sustainability-strategy">Interest in Sustainability and Importance of ETH-wide Sustainability Strategy</h2>
+<p>ggplot(other_projects, aes(x = reorder(Project, -Percentage), y = Percentage)) + geom_bar(stat = “identity”, fill = “lightgreen”) + labs(title = “Awareness of Other Projects”, x = “Project”, y = “Percentage”, fill = “Awareness”) + coord_flip() + theme_minimal()</p>
+</section>
 <section id="figures" class="level2">
 <h2 class="anchored" data-anchor-id="figures">Figures</h2>
 </section>

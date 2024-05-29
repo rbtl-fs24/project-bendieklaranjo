@@ -25,15 +25,15 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
     learn_eth_sus = `How did you learn about the ETH Sustainability Department?\nPlease select the most applying option.`,
     heard_net_zero = `Have you heard of the ETH Net zero initiative?`,
     know_net_zero_scope = `How well do you know the scope of the ETH Net Zero initiative?`,
-    heard_dec_campus = `Which of these ETH Net Zero measures have you heard of? [Decarbonised campus]`,
-    heard_indirect_emissions = `Which of these ETH Net Zero measures have you heard of? [Reduction of indirect emissions from electricity procurement and district heating]`,
-    heard_living_lab = `Which of these ETH Net Zero measures have you heard of? [Campus as a net-​zero living lab]`,
-    heard_bus_travel = `Which of these ETH Net Zero measures have you heard of? [Emission-​reduced business travel]`,
-    heard_scope3 = `Which of these ETH Net Zero measures have you heard of? [Scope 3 exploration]`,
-    heard_procurement = `Which of these ETH Net Zero measures have you heard of? [Emission-​reduced procurement of goods, construction and services]`,
-    heard_community_engage = `Which of these ETH Net Zero measures have you heard of? [Communication and Community Engagement]`,
-    heard_data_monitor = `Which of these ETH Net Zero measures have you heard of? [Data Availability, Monitoring and Reporting]`,
-    heard_expertise = `Which of these ETH Net Zero measures have you heard of? [Strengthening Expertise in Sustainability and Ethics]`,
+    heard_measure_dec_campus = `Which of these ETH Net Zero measures have you heard of? [Decarbonised campus]`,
+    heard_measure_indirect_emissions = `Which of these ETH Net Zero measures have you heard of? [Reduction of indirect emissions from electricity procurement and district heating]`,
+    heard_measure_living_lab = `Which of these ETH Net Zero measures have you heard of? [Campus as a net-​zero living lab]`,
+    heard_measure_bus_travel = `Which of these ETH Net Zero measures have you heard of? [Emission-​reduced business travel]`,
+    heard_measure_scope3 = `Which of these ETH Net Zero measures have you heard of? [Scope 3 exploration]`,
+    heard_measure_procurement = `Which of these ETH Net Zero measures have you heard of? [Emission-​reduced procurement of goods, construction and services]`,
+    heard_measure_community_engage = `Which of these ETH Net Zero measures have you heard of? [Communication and Community Engagement]`,
+    heard_measure_data_monitor = `Which of these ETH Net Zero measures have you heard of? [Data Availability, Monitoring and Reporting]`,
+    heard_measure_expertise = `Which of these ETH Net Zero measures have you heard of? [Strengthening Expertise in Sustainability and Ethics]`,
     learn_net_zero = `Where did you learn about the ETH Net Zero initiative?\nPlease select the most applying option.`,
     heard_net_zero_day = `Have you heard of the Net Zero Day on 28 May 2024 at ETH?`,
     learn_net_zero_day = `If yes, where did you learn about the Net Zero Day?`,
@@ -76,19 +76,53 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   select(-matches("know_eth_sus_work", "learn_eth_sus"))
 
-# Visualisation
 
-## Subset the data for awareness of ETH Sustainability Department and Net Zero Initiative
-awareness_dep_net_zero <- subset(eth_dep_sus_visibility_cleaning, select = c("heard_eth_sus", "heard_net_zero"))
+# Visualization
+## Subset the data for awareness of ETH Sustainability Department and its Initiatives
+awareness_summary <- eth_dep_sus_visibility_cleaning %>%
+  select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
+  summarise_all(~ mean(. == "Yes", na.rm = TRUE) * 100) %>%
+  pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Percentage")
 
-## Reshape the data for visualization
-awareness_data_long <- tidyr::gather(awareness_dep_net_zero, key = "Initiative", value = "Awareness", heard_eth_sus:heard_net_zero)
-
-# Subset the data for Net Zero measures
+# Subset the data for individual Net Zero measures
+## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
 net_zero_measures <- eth_dep_sus_visibility_cleaning %>%
-  select(starts_with("Heard_")) %>%
+  select(starts_with("heard_measure_")) %>%
   summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
   gather(key = "Measure", value = "Percentage")
 
+#Subset the data for interest in climate change mitigation
+## Define the labels for the interest levels
+interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
+
+## Create a factor with the specified labels
+eth_dep_sus_visibility_cleaning$Interest <- factor(eth_dep_sus_visibility_cleaning$interest_sustainability, levels = 1:6, labels = interest_labels)
+
+# Count the total number of responses
+total_responses <- nrow(eth_dep_sus_visibility_cleaning)
+
+# Calculate the percentage of each interest level
+interest_percent <- eth_dep_sus_visibility_cleaning %>%
+  count(Interest) %>%
+  mutate(Percentage = n / total_responses * 100) %>%
+  complete(Interest = interest_labels, fill = list(n = 0, Percentage = 0))
+
+#Subset the data for importance of ETH-wide sustainability strategy
+## Define the labels for the importance levels
+importance_labels <- c("Not important", "Slightly important", "Moderately important", "Neutral", "Important", "Very important")
+
+## Create a factor with the specified labels
+eth_dep_sus_visibility_cleaning$ImportanceStrategyt <- factor(eth_dep_sus_visibility_cleaning$importance_eth_strategy, levels = 1:6, labels = importance_labels)
+
+# Count the total number of responses
+total_responses <- nrow(eth_dep_sus_visibility_cleaning)
+
+# Calculate the percentage of each importance level
+importance_percent <- eth_dep_sus_visibility_cleaning %>%
+  count(ImportanceStrategyt) %>%
+  mutate(Percentage = n / total_responses * 100) %>%
+  complete(ImportanceStrategyt = importance_labels, fill = list(n = 0, Percentage = 0))
+
+glimpse(eth_dep_sus_visibility_cleaning)
 # Store data
-#write_csv(eth_dep_sus_visibility_cleaning, "data/processed/eth_dep_sus_visibility_processed.csv")
+# write_csv(eth_dep_sus_visibility_cleaning, "data/processed/eth_dep_sus_visibility_processed.csv")
