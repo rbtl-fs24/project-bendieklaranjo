@@ -1,6 +1,6 @@
 ---
-title: "Final Report"
-subtitle: "What is the current level of awareness among ETH members regarding the work of and services provided by the ETH Sustainability department, and how could it be improved?"
+title: "ETH Sustainability Department Visibility Survey"
+subtitle: "Final report of the Capstone Project "
 date: "05-30-2024"
 author:
   - name: Ana Bendiek Laranjo
@@ -9,8 +9,11 @@ author:
     affiliation: 
       - name: ETH Zurich
         url: https://ethz.ch/de.html
-abstract: 
-  The abstract will be placed here. Breaks can be added by hitting return on the keyboard.
+abstract: "This survey aims to assess the visibility and awareness of the ETH Sustainability department among ETH Zurich members. As the central hub for sustainability activities, ETH Sustainability is crucial in advancing sustainable development within the university and in broader society.
+
+The department oversees various initiatives, including ETH Net Zero activities, sustainability reporting, and various projects related to sustainable travel and gastronomy. Despite its pivotal role, there is limited information on the awareness levels and engagement of the ETH community with these initiatives.
+
+The survey seeks to understand the current recognition and understanding of ETH Sustainability’s work and services. Specifically, it will explore how well the department's efforts are known among students, faculty, and staff, and how these stakeholders perceive and engage with its activities. Additionally, the survey will gather insights on potential strategies to enhance the department's visibility and improve stakeholder engagement. The findings will contribute to the ongoing efforts to integrate sustainability more deeply into the university’s culture and operations, ensuring that ETH Zurich continues to lead in sustainable development."
 license: "CC BY"
 citation: 
   container-title: My Blog
@@ -37,104 +40,110 @@ editor_options:
 
 # Introduction
 
-The survey's main research question is:
+Switzerland derives its concept of sustainability from the World
+Commission on Environment and Development, also known as the Brundtland
+Commission @bundesamt2021. In its 1987 report, "Our Common Future," the
+Commission defined sustainable development as "Development that
+satisfies the needs of the present without jeopardizing the ability of
+future generations to meet their own needs" @commissionB1991. Based on
+the 2030 Agenda of 2015 @untransforming2015, the Federal Council adopted
+Switzerland's long-term climate strategy on 27 January 2021. In the
+"Strategie Nachhaltige Entwicklung 2030", the Confederation undertakes
+to consistently apply the principles of sustainable development to its
+own activities and units, which include the ETH Domain, in order to
+contribute to the achievement of the SDS 2030 goals @arestrategie2021.
 
-How do professionals in the architecture, engineering, and construction
-(AEC) industries in the DACH region adopt digital twins and circular
-strategies, and what is the potential for digital twins to support
-circular construction practices?
+Within the organizational structure of ETH Zurich, the Department of
+Sustainability is the central strategic-operational unit and dedicated
+to enhancing ETH Zurich's contribution to sustainable development and
+communicating these efforts both internally and externally. The unit was
+established in 2008 and has since initiated numerous groundbreaking
+projects and processes. Their responsibilty lies in the coordination of
+the ETH Net Zero activities, manage sustainability reporting, oversee
+the ETH Air Travel Project and the Sustainable Gastronomy Project,
+compile the catalogue of sustainability-related lectures, and organize
+the Public Lecture series "Sustainable Development Goals in Context" in
+collaboration with ETH4D @ethsusdep2024. Despite its crucial role in the
+compliance with climate change targets, there is limited information on
+the awareness levels and engagement of the ETH community with these
+initiatives.
+
+The survey seeks to understand the current recognition and understanding
+of ETH Sustainability’s work and services. Specifically, it will explore
+how well the department's efforts are known among members of the ETH
+domain, and how these stakeholders perceive and engage with its
+activities. The insights of this study could contribute to improving the
+department's visibility and increasing sustainability on campus.
+
+The survey's main research question is: What is the current level of
+awareness among ETH members regarding the work of and services provided
+by the ETH Sustainability department, and how could it be improved?
 
 To answer the main research question, three initial research questions
 are guiding the study:
 
--   **RQ1:** What is the current level of awareness ?
-
--   **RQ2:** To what extent are circular economy strategies currently
-    being adopted and implemented by AEC professionals in the DACH
-    region?
-
--   **RQ3:** How do AEC professionals in the DACH region envision the
-    potential of digital twins to support and enhance circular
-    construction practices?
-
-Current research on this topic includes 
-
-1.  defining “Digital Twins” on a general and industry-specific level
-    [(Grieves, 2015; Thelen et al.,
-    2022)](https://www.zotero.org/google-docs/?TZ848a)
-
-2.  the identification of (potential) applications of Digital Twins in
-    the construction sector [(Davila Delgado and Oyedele, 2021; Ammar et
-    al., 2022; Araújo et al., 2022; AlBalkhy et al.,
-    2024)](https://www.zotero.org/google-docs/?XEJlyF)
-
-3.  the potential applications of Digital Twins for circular strategies
-    in construction [(Meng, Das and Meng,
-    2023)](https://www.zotero.org/google-docs/?H2cgcw) and other
-    industries [(Preut, Kopka and Clausen, 2021; Mügge et al.,
-    2024)](https://www.zotero.org/google-docs/?8TzmjP)
-
-These research studies denote significant progress in understanding the
-applications of digital twins (DT) in the AEC industries. Nevertheless,
-a significant knowledge gap remains regarding the real-world DT adoption
-levels in the AEC industry. DT adoption encompasses the awareness,
-understanding, and acceptance among industry stakeholders.
-
-Evaluating awareness levels involves determining how individuals and
-organizations within the BE sector know the DT concept and its potential
-benefits. Understanding levels refer to the depth of comprehension
-regarding the intricacies and implications of DT implementation. This
-research aspect also covers identifying the skills required to build DT
-systems. Acceptance involves examining the willingness of stakeholders
-to adopt DT technologies and integrate them into their operational
-frameworks.
+-   **RQ1:** What is the current level of awareness among ETH members
+    about the ETH Sustainability Department?
+-   **RQ2:** What is the current level of awareness among ETH members
+    about the initiatives of the ETH Sustainability Department?
+-   **RQ3:** What are the most effective information channels to
+    increase the visibility of the ETH ETH Sustainability Department?
 
 This research is exploratory and aims to set a precedent for future
-industry adoption.
+information diffusion.
 
 # Methods
 
-## Data collection
+The study was designed as an online survey, with data being collected
+through the Google Forms platform. The study was conducted
+transparently, with no incomplete disclosure of information or deception
+involved. Participants were be provided with a link to the survey, which
+they could access via email. They could choose to complete the survey
+from any location they prefer. Furthermore, participants were free to
+stop the survey at any time, ensuring their autonomy and voluntary
+participation.
 
-The study is designed as an online survey, with data being collected
-through a survey platform. This approach allows the researchers to gain
-insights into the state of the industry in different geographic
-locations, particularly in relation to the adoption of new technologies.
+The study is limited to people from the ETH domain, including the
+research institutions Paul Scherrer Institute (PSI), the Swiss Federal
+Institute for Forest, Snow and Landscape Research (WSL), the Swiss
+Federal Laboratories for Materials Science and Technology (Empa), and
+the Swiss Federal Institute of Aquatic Science and Technology (Eawag).
+To gain insights on the awareness levels among different affilition
+groups and locations, the participants were asked to provide information
+on their group and primarily working location.
 
-The study will be conducted transparently, with no incomplete disclosure
-of information or deception involved. Participants will be provided with
-a link to the survey, which they can access via email or LinkedIn. They
-can choose to complete the survey from any location they prefer.
+The survey comprised multiple sections, each targeting specific areas of
+interest:
 
-Participants will be free to stop the survey at any time, ensuring their
-autonomy and voluntary participation. Data collection will be
-facilitated through the use of Google Forms or Qualtrics, two widely
-used survey platforms.
+-   Demographic Information: Participants were asked to select their
+    affiliation and primary group within the ETH Zurich community.
 
-## Participants
+-   Awareness and Knowledge: Questions assessed participants' awareness
+    and understanding of the ETH Sustainability department, the ETH Net
+    Zero initiative, the Air Travel Project, the Sustainable Gastronomy
+    Project, and the Sustainable Development Goals (SDG) Public Lecture
+    Series.
 
-The study is limited to people in the Architecture, Engineering, and
-Construction (AEC) industry in Germany, Austria, and Switzerland. The
-researchers expect a minimum of 30 participants (10 participants per
-country) for the study, which would still provide valuable insights to
-report on. At the same time, a reasonable upper limit for the number of
-participants is set at around 10% of the population size or a maximum of
-1000 per included country (Austria, Germany, Switzerland), as the survey
-will be distributed to a few professional working groups focused on
-similar topics.
+-   Information Sources: Participants identified where they learned
+    about various sustainability initiatives (e.g., ETH website,
+    lectures, seminars, advertisements on campus).
 
-The general inclusion criteria for the study will be based on the
-participants' actual work experience in the architecture, engineering,
-and construction industries. Initial questions will also assess their
-knowledge and experience in areas such as digital twins and the circular
-economy.
+-   Engagement: Questions determined whether participants had heard of
+    specific initiatives, their familiarity with the initiatives'
+    scopes, and their attendance at related events.
 
-While the questions about the targeted, relevant experience will not
-necessarily be used to exclude participants, they will help qualify the
-potential responses and provide more context for the researchers to
-interpret the data. Furthermore, information regarding the sex and
-gender of the participants will be requested to conduct sex—and
-gender-based analyses (SGBA).
+-   Perceptions and Suggestions: Participants rated the visibility of
+    the ETH Sustainability department and suggested ways to improve its
+    visibility.
+
+Responses were timestamped and collected over a one-week period,
+ensuring a comprehensive snapshot of the university community's current
+awareness and engagement levels. The survey was first published on May
+24, 2024 and was closed on May 31, 2024 with a total of 24 participants.
+
+The collected data were then analyzed to identify trends, gaps, and
+potential strategies for enhancing the visibility and impact of the ETH
+Sustainability department.
 
 # Results
 
@@ -146,9 +155,10 @@ library(ggplot2)
 
 ```
 
-
 ## Figures
+
 ### Awareness of ETH Sustainability Department and its initiatives
+
 ```{r}
 ## Which initiative is the most known?
 eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
@@ -233,13 +243,11 @@ write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_
 
 ```
 
-
 ## Tables
-
 
 # Conclusions
 
-# References
+The study While the study is not representative, it confirms the
+Department's self-assessment regarding their visibility.
 
-In @tilley2021my, the authors describe how visitors still expect a
-personal pick-up, despite the availability of taxi services
+# References
