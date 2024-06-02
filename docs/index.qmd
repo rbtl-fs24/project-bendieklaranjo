@@ -46,7 +46,7 @@ Commission. In its 1987 report, "Our Common Future," the
 Commission defined sustainable development as "Development that
 satisfies the needs of the present without jeopardizing the ability of
 future generations to meet their own needs" [@wced1991our].
-Based on the 2030 Agenda of 2015 [@un2015transforming¨], the Federal Council adopted Switzerland's long-term climate strategy on 27 January 2021. In the "Strategie Nachhaltige Entwicklung 2030", the Confederation undertakes to consistently apply the principles of sustainable development to its own activities and units, which include the ETH Domain, in order to contribute to the achievement of the SDS 2030 goals @are2021strategie.
+Based on the 2030 Agenda of 2015 [@un2015transforming¨], the Federal Council adopted Switzerland's long-term climate strategy on 27 January 2021. In the "Strategie Nachhaltige Entwicklung 2030", the Confederation undertakes to consistently apply the principles of sustainable development to its own activities and units, which include the ETH Domain, in order to contribute to the achievement of the SDS 2030 goals [@are2021strategie].
 
 Within the organizational structure of ETH Zurich, the Department of
 Sustainability is the central strategic-operational unit and dedicated
@@ -58,7 +58,7 @@ the ETH Net Zero activities, manage sustainability reporting, oversee
 the ETH Air Travel Project and the Sustainable Gastronomy Project,
 compile the catalogue of sustainability-related lectures, and organize
 the Public Lecture series "Sustainable Development Goals in Context" in
-collaboration with ETH4D @ethsusdep2024. Despite its crucial role in the
+collaboration with ETH4D [@ethsusdep2024]. Despite its crucial role in the
 compliance with climate change targets, there is limited information on
 the awareness levels and engagement of the ETH community with these
 initiatives.
@@ -90,15 +90,10 @@ information diffusion.
 # Methods
 
 The study was designed as an online survey, with data being collected
-through the Google Forms platform. The study was conducted
-transparently, with no incomplete disclosure of information or deception
-involved. Participants were be provided with a link to the survey, which
-they could access via email. They could choose to complete the survey
-from any location they prefer. Furthermore, participants were free to
-stop the survey at any time, ensuring their autonomy and voluntary
-participation.
+through the Google Forms platform.
+The study was conducted transparently, with no incomplete disclosure of information or deception involved. Participants were provided with a link to the survey, which they could access via email. They could choose to complete the survey from any location they prefer. Furthermore, participants were free to stop the survey at any time, ensuring their autonomy and voluntary participation.
 
-The study is limited to people from the ETH domain, including the
+The study was limited to people from the ETH domain, including the
 research institutions Paul Scherrer Institute (PSI), the Swiss Federal
 Institute for Forest, Snow and Landscape Research (WSL), the Swiss
 Federal Laboratories for Materials Science and Technology (Empa), and
@@ -106,30 +101,6 @@ the Swiss Federal Institute of Aquatic Science and Technology (Eawag).
 To gain insights on the awareness levels among different affilition
 groups and locations, the participants were asked to provide information
 on their group and primarily working location.
-
-The survey comprised multiple sections, each targeting specific areas of
-interest:
-
--   Demographic Information: Participants were asked to select their
-    affiliation and primary group within the ETH Zurich community.
-
--   Awareness and Knowledge: Questions assessed participants' awareness
-    and understanding of the ETH Sustainability department, the ETH Net
-    Zero initiative, the Air Travel Project, the Sustainable Gastronomy
-    Project, and the Sustainable Development Goals (SDG) Public Lecture
-    Series.
-
--   Information Sources: Participants identified where they learned
-    about various sustainability initiatives (e.g., ETH website,
-    lectures, seminars, advertisements on campus).
-
--   Engagement: Questions determined whether participants had heard of
-    specific initiatives, their familiarity with the initiatives'
-    scopes, and their attendance at related events.
-
--   Perceptions and Suggestions: Participants rated the visibility of
-    the ETH Sustainability department and suggested ways to improve its
-    visibility.
 
 Responses were timestamped and collected over a one-week period,
 ensuring a comprehensive snapshot of the university community's current
@@ -153,16 +124,85 @@ library(knitr)
 library(DT)
 ```
 
-##Figures
+## RQ1: What is the current level of awareness among ETH members about the ETH Sustainability Department?
 
 The study shows, that overall the visibility of the ETH Department for Sustainability is low. Among the participants only
-The main findings are summarised in @table.
 
-### Awareness of ETH Sustainability Department and its initiatives
+## Tables
+
+```{r}
+eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
+
+# Calculate summary statistics for familiarity with ETH Sustainability Department's work
+interest_sustainability_tbl <- eth_dep_sus_visibility_visual %>%
+  summarize(
+    count = n(),
+    mean = mean(interest_sustainability, na.rm = TRUE),
+    median = median(interest_sustainability, na.rm = TRUE),
+    sd = sd(interest_sustainability, na.rm = TRUE)
+  ) %>%
+  mutate(category = "Familiarity with ETH Sustainability Department's Work")
+
+importance_eth_strategy_tbl <- eth_dep_sus_visibility_visual %>%
+  summarize(
+    count = n(),
+    mean = mean(importance_eth_strategy, na.rm = TRUE),
+    median = median(importance_eth_strategy, na.rm = TRUE),
+    sd = sd(importance_eth_strategy, na.rm = TRUE)
+  ) %>%
+  mutate(category = "Importance of ETH-wide Sustainability Strategy")
+
+vis_eth_sus_tbl <- eth_dep_sus_visibility_visual %>%
+  summarize(
+    count = n(),
+    mean = mean(vis_eth_sus_work, na.rm = TRUE),
+    median = median(vis_eth_sus_work, na.rm = TRUE),
+    sd = sd(vis_eth_sus_work, na.rm = TRUE)
+  ) %>%
+  mutate(category = "Visibility of the ETH Sustainability Department")
+
+# Combine the summary tables into a single data frame
+summary_table <- bind_rows(
+  interest_sustainability_tbl,
+  importance_eth_strategy_tbl,
+  vis_eth_sus_tbl
+) %>%
+  select(category, everything())
+
+# results display as visualisation --------------------------------------
+#| label: tbl-summary-personal
+#| tbl-cap: "Summary of participants attitude towards sustainability, an ETH wide sustainability strategy and the perceived visibility"
+summary_table %>%
+  gt() %>%
+  tab_header(
+    title = "Summary of Participant's Beliefs",
+    subtitle = "Importance, and Visibility"
+  ) %>%
+  cols_label(
+    category = "Category",
+    count = "Count",
+    mean = "Mean",
+    median = "Median",
+    sd = "Standard Deviation"
+  ) %>%
+  fmt_missing(
+    columns = everything(),
+    missing_text = "N/A"
+  )
+
+# save data underlying the table ----------------------
+write_csv(interest_sustainability_tbl, "/cloud/project/data/final/interest_sustainability_summary.csv")
+write_csv(importance_eth_strategy_tbl, "/cloud/project/data/final/importance_eth_strategy_summary.csv")
+write_csv(vis_eth_sus_tbl, "/cloud/project/data/final/visibility_eth_sustainability_summary.csv")
+```
+
+
+## RQ2: What is the current level of awareness among ETH members about the initiatives of the ETH Sustainability Department?
+
+Awareness of ETH Sustainability Department and its initiatives
 
 ```{r}
 ## Which initiative is the most known?
-eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
 
 # data analysis --------------------------------------
 
@@ -186,6 +226,8 @@ ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Percentage, fill = 
 # save data underlying the table ----------------------
 write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
 ```
+
+Among the initiatives, the Net Zero initiative is the most known. To explore how aware ETH members were of this intitiative further questions were asked regarding specific ETH Net Zero measures. Specifically, participants were first asked to assess their familiarity with the Net Zero on a scale from not familiar at all to very familiar and then they were asked which of these measures they heard of.
 
 ### Awareness of Net Zero measures
 
@@ -213,6 +255,10 @@ ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = P
 # save data underlying the table ----------------------
 write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
 ```
+
+## RQ3: What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
+
+According to the previous results, the Net Zero initiative is the most known and it can therefore be implied to be the most visible. Es ist daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um festzustellen welches Medium für die Informationdiffusion besonders effektiv ist.
 
 ### What is the most effective information channel?
 
@@ -242,22 +288,16 @@ ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = 
 write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
 ```
 
+Diese Information konnte nur durch die Teilnehmer beantwortet werden konnte, die zumindest von der Net Zero initiative gehört haben. Daher wurden in einem letzten Schritt alle Teilnehmer gefragt, welcher Channel am geeignetsten wäre, um die Visibility des ETH Departments of Sustainability zu erhöhen.
+
 ### What is the most promising information channel to increase the visibility?
-
-```{r}
-
-
-
-```
-
-## Tables
- 
 
 
 # Conclusions
 
 The study While the study is not representative, it confirms the
-Department's self-assessment regarding their visibility.
+Department's self-assessment that their visibility needs further increase.
+
 
 # References
 

@@ -14,6 +14,10 @@ eth_dep_sus_visibility_cleaning %>%
   arrange(Timestamp)
 
 #Data cleaning using dplyr
+# Filter out participants who did not consent
+eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+  filter(`Your responses to this questionnaire may be used for research purposes. Your privacy is ensured throughout this survey. No personal identifiable information such as your name, phone number, email address, or residence will be collected.` == "I have read and understood the conditions outlined above and voluntarily agree to participate in this survey.")
+
 ## Renaming of columns to short variable names
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>% 
   rename(
