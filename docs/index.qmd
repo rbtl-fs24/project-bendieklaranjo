@@ -128,7 +128,6 @@ library(DT)
 
 The study shows, that overall the visibility of the ETH Department for Sustainability is low. Among the participants only
 
-## Tables
 
 ```{r}
 eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
