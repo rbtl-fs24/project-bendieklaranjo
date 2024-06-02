@@ -41,17 +41,12 @@ editor_options:
 # Introduction
 
 Switzerland derives its concept of sustainability from the World
-Commission on Environment and Development, also known as the Brundtland
-Commission @bundesamt2021. In its 1987 report, "Our Common Future," the
+Commission on Environment and Development [@are2024nachhaltigkeit], also known as the Brundtland
+Commission. In its 1987 report, "Our Common Future," the
 Commission defined sustainable development as "Development that
 satisfies the needs of the present without jeopardizing the ability of
-future generations to meet their own needs" @commissionB1991. Based on
-the 2030 Agenda of 2015 @untransforming2015, the Federal Council adopted
-Switzerland's long-term climate strategy on 27 January 2021. In the
-"Strategie Nachhaltige Entwicklung 2030", the Confederation undertakes
-to consistently apply the principles of sustainable development to its
-own activities and units, which include the ETH Domain, in order to
-contribute to the achievement of the SDS 2030 goals @arestrategie2021.
+future generations to meet their own needs" [@wced1991our].
+Based on the 2030 Agenda of 2015 [@un2015transforming¨], the Federal Council adopted Switzerland's long-term climate strategy on 27 January 2021. In the "Strategie Nachhaltige Entwicklung 2030", the Confederation undertakes to consistently apply the principles of sustainable development to its own activities and units, which include the ETH Domain, in order to contribute to the achievement of the SDS 2030 goals @are2021strategie.
 
 Within the organizational structure of ETH Zurich, the Department of
 Sustainability is the central strategic-operational unit and dedicated
@@ -152,10 +147,16 @@ library(tidyverse)
 library(googlesheets4)
 library(dplyr)
 library(ggplot2)
-
+library(gt)
+library(gtsummary)
+library(knitr)
+library(DT)
 ```
 
-## Figures
+##Figures
+
+The study shows, that overall the visibility of the ETH Department for Sustainability is low. Among the participants only
+The main findings are summarised in @table.
 
 ### Awareness of ETH Sustainability Department and its initiatives
 
@@ -175,7 +176,7 @@ awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
 #| fig-cap: Awareness of ETH Sustainability Department and its initiatives among ETH domain members.
 #| warning: false
 ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Percentage, fill = Initiative)) +
-  geom_bar(stat = "identity") +
+  geom_histogram(stat = "identity") +
   labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
        x = "Initiative",
        y = "Percentage") +
@@ -198,8 +199,10 @@ awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
   gather(key = "Measure", value = "Percentage")
 
 # results display as visualisation --------------------------------------
+#| label: fig-awareness-netzero
+#| fig-cap: Awareness of Net Zero initiative among ETH domain members.
 ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
+  geom_bar(stat = "identity", fill = "lightseagreen") +
   labs(title = "Awareness of Net Zero Measures",
        x = "Percentage",
        y = "Measure",
@@ -226,8 +229,10 @@ net_zero_info_channel_count <- net_zero_learning %>%
   arrange(desc(n))
 
 # results display as visualisation --------------------------------------
+#| label: fig-netzero-measures
+#| fig-cap: Awareness of the measures included in the Net Zero Initiative among ETH domain members.
 ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
+  geom_bar(stat = "identity", fill = "lightseagreen") +
   labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
        x = "Information Channel",
        y = "Frequency") +
@@ -241,9 +246,13 @@ write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_
 
 ```{r}
 
+
+
 ```
 
 ## Tables
+ 
+
 
 # Conclusions
 
@@ -251,3 +260,5 @@ The study While the study is not representative, it confirms the
 Department's self-assessment regarding their visibility.
 
 # References
+
+

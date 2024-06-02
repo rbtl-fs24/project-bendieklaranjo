@@ -2,6 +2,8 @@ library(tidyverse)
 library(googlesheets4)
 library(dplyr)
 library(ggplot2)
+library(readr)
+library(stringr)
 
 #Data import
 eth_dep_sus_visibility_cleaning <- read_csv("data/raw/eth_dep_sus_visibility_raw.csv")
@@ -76,8 +78,57 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   select(-matches("know_eth_sus_work", "learn_eth_sus"))
 
-##Converting notice_eth_sus_work in long format
+##Clean eth_dep_sus_visibility_cleaning
+## Split the column into multiple columns based on comma as separator
+eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+  separate(`notice_eth_sus_work`,
+           into = c("notice_ETH_main_website", "notice_ETH_mailing_list", "notice_Advertisement_on_Campus", "notice_ETH_Link_TV", "notice_Lectures_and_seminars", "notice_Social_Media"),
+           sep = ",",
+           remove = FALSE,
+           fill = "right") %>%
+  mutate(
+    # Convert to boolean columns
+    notice_ETH_main_website = !is.na(notice_ETH_main_website),
+    notice_ETH_mailing_list = !is.na(notice_ETH_mailing_list),
+    notice_Advertisement_on_Campus = !is.na(notice_Advertisement_on_Campus),
+    notice_ETH_Link_TV = !is.na(notice_ETH_Link_TV),
+    notice_Lectures_and_seminars = !is.na(notice_Lectures_and_seminars),
+    notice_Social_Media = !is.na(notice_Social_Media)
+  ) %>%
+  select(-`notice_eth_sus_work`)
 
+# Function to clean responses: if the response is not "Yes" or "No", set it to NA
+clean_single_response <- function(response) {
+  response <- str_trim(response)  # Trim whitespace
+  ifelse(tolower(response) %in% c("yes", "no"), response, NA_character_)
+}
+
+# Columns to be cleaned
+columns_to_clean <- c(
+  "heard_measure_dec_campus",
+  "heard_measure_indirect_emissions",
+  "heard_measure_living_lab",
+  "heard_measure_bus_travel",
+  "heard_measure_scope3",
+  "heard_measure_procurement",
+  "heard_measure_community_engage",
+  "heard_measure_data_monitor",
+  "heard_measure_expertise",
+  "learn_sus_gastronomy",
+  "learn_air_travel"
+)
+
+# Apply the cleaning function to each column
+eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+  mutate(across(all_of(columns_to_clean), clean_single_response))
+
+# Verify the cleaning
+eth_dep_sus_visibility_cleaning %>%
+  select(all_of(columns_to_clean)) %>%
+  summarise_all(~ sum(!. %in% c("Yes", "No", NA)))
+
+#----------------------------------------------------------------------
+# Inspect the cleaned data
 glimpse(eth_dep_sus_visibility_cleaning)
 
 # Store data
@@ -85,7 +136,7 @@ eth_dep_sus_visibility_processed <- eth_dep_sus_visibility_cleaning
 write_csv(eth_dep_sus_visibility_processed, "data/processed/eth_dep_sus_visibility_processed.csv")
 
 
-#----------------------------------------------------------------
+#----------------------------------------------------------------------
 # ##Subset the data for interest in climate change mitigation
 # 
 # interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
