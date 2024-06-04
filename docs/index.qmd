@@ -123,6 +123,7 @@ library(gt)
 library(gtsummary)
 library(knitr)
 library(readr)
+library(scales)
 library(stringr)
 library(tidyverse)
 
@@ -234,7 +235,7 @@ ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Respo
        x = "Initiative",
        y = "Count",
        fill = "Response") +
-  theme_minimal() +
+  theme_minimal() 
   theme(axis.text.x = element_text(color = "white", angle = 0, hjust = 0.5, vjust = 0.5)) +
   scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
   scale_fill_colorblind()
@@ -264,24 +265,24 @@ measure_labels <- c(
   heard_measure_expertise = "Strengthening Expertise in Sustainability and Ethics"
 )
 
+# results display as visualisation --------------------------------------
+#| label: fig-awareness-netzero
+#| fig-cap: Awareness of Net Zero initiative among ETH domain members.
 awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
   select(starts_with("heard_measure_")) %>%
   summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
   gather(key = "Measure", value = "Percentage") %>%
-  mutate(Measure = measure_labels[Measure]) 
+  mutate(Measure = measure_labels[Measure])  # Use the labels defined earlier
 
-# results display as visualisation --------------------------------------
-#| label: fig-awareness-netzero
-#| fig-cap: Awareness of Net Zero initiative among ETH domain members.
+# Visualization: Plot awareness of Net Zero measures with colorblind palette
 ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
-  geom_bar(stat = "identity", fill = Measure) +
+  geom_bar(stat = "identity") +
   labs(title = "Awareness of Net Zero Measures",
        x = "Measure",
-       
        y = "Percentage",
        fill = "Awareness") +
   coord_flip() +
-  theme_minimal()+
+  scale_y_continuous(labels = percent_format()) + 
   scale_fill_colorblind()
 
 # save data underlying the table ----------------------
