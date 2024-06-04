@@ -1,13 +1,13 @@
 Initiative,Response,Count
-heard_air_travel,No,19
-heard_air_travel,Yes,2
-heard_eth_sus,No,7
-heard_eth_sus,Yes,14
-heard_net_zero,No,9
-heard_net_zero,Yes,12
-heard_net_zero_day,No,17
-heard_net_zero_day,Yes,4
-heard_sdg_lecture,No,14
-heard_sdg_lecture,Yes,7
-heard_sus_gastronomy,No,14
-heard_sus_gastronomy,Yes,7
+Air Travel Project,No,19
+Air Travel Project,Yes,2
+ETH Net Zero,No,9
+ETH Net Zero,Yes,12
+ETH Net Zero Day,No,17
+ETH Net Zero Day,Yes,4
+ETH Sustainability Department,No,7
+ETH Sustainability Department,Yes,14
+SDG Public Lectures,No,14
+SDG Public Lectures,Yes,7
+Sustainable Gastronomy Project,No,14
+Sustainable Gastronomy Project,Yes,7

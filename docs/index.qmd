@@ -117,12 +117,15 @@ Sustainability department.
 library(dplyr)
 library(DT)
 library(ggplot2)
+library(ggthemes)
 library(googlesheets4)
 library(gt)
 library(gtsummary)
 library(knitr)
 library(readr)
+library(stringr)
 library(tidyverse)
+
 ```
 
 ## RQ1: What is the current level of awareness among ETH members about the ETH Sustainability Department?
@@ -205,34 +208,37 @@ Awareness of ETH Sustainability Department and its initiatives
 ## Which initiative is the most known?
 
 # data analysis --------------------------------------
+
 initiative_names <- c(
-  heard_eth_sus = "ETH Net Zero",
-  heard_net_zero = "ETH Net Zero Day",
-  heard_net_zero_day = "Air Travel Project",
-  heard_air_travel = "Sustainable Gastronomy Project",
-  heard_sus_gastronomy = "SDG Public Lectures"
+  heard_eth_sus = "ETH Sustainability Department",
+  heard_net_zero = "ETH Net Zero",
+  heard_net_zero_day = "ETH Net Zero Day",
+  heard_air_travel = "Air Travel Project",
+  heard_sus_gastronomy = "Sustainable Gastronomy Project",
+  heard_sdg_lecture = "SDG Public Lectures"
 )
 
 awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
   select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
   pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Response") %>%
+  mutate(Initiative = recode(Initiative, !!!initiative_names)) %>%
   group_by(Initiative, Response) %>%
   summarise(Count = n(), .groups = 'drop') %>%
   mutate(Response = factor(Response, levels = c("Yes", "No", "N/A")))
 
-
-# results display as visualisation ---------------------------
-#| label: fig-awareness
-#| fig-cap: Awareness of ETH Sustainability Department and its initiatives among ETH domain members.
-#| warning: false
+# results display as visualisation --------------------------------------
 ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Response)) +
-  geom_bar(stat = "identity", position = "stack") +
+  geom_bar(stat = "identity") +  # Keep the default stacking order
+  geom_text(aes(label = Count), position = position_stack(vjust = 0.5), color = "white") +  # Change text color to white
   labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
        x = "Initiative",
        y = "Count",
        fill = "Response") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(color = "white", angle = 0, hjust = 0.5, vjust = 0.5)) +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
+  scale_fill_colorblind()
+
 
 # save data underlying the table ----------------------
 write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
@@ -246,22 +252,37 @@ Among the initiatives, the Net Zero initiative is the most known. To explore how
 ## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
 
 # data analysis --------------------------------------
+measure_labels <- c(
+  heard_measure_dec_campus = "Decarbonised campus",
+  heard_measure_indirect_emissions = "Reduction of indirect emissions from electricity procurement and district heating",
+  heard_measure_living_lab = "Campus as a net-zero living lab",
+  heard_measure_bus_travel = "Emission-reduced business travel",
+  heard_measure_scope3 = "Scope 3 exploration",
+  heard_measure_procurement = "Emission-reduced procurement of goods, construction and services",
+  heard_measure_community_engage = "Communication and Community Engagement",
+  heard_measure_data_monitor = "Data Availability, Monitoring and Reporting",
+  heard_measure_expertise = "Strengthening Expertise in Sustainability and Ethics"
+)
+
 awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
   select(starts_with("heard_measure_")) %>%
   summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
-  gather(key = "Measure", value = "Percentage")
+  gather(key = "Measure", value = "Percentage") %>%
+  mutate(Measure = measure_labels[Measure]) 
 
 # results display as visualisation --------------------------------------
 #| label: fig-awareness-netzero
 #| fig-cap: Awareness of Net Zero initiative among ETH domain members.
 ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
-  geom_bar(stat = "identity", fill = "lightseagreen") +
+  geom_bar(stat = "identity", fill = Measure) +
   labs(title = "Awareness of Net Zero Measures",
-       x = "Percentage",
-       y = "Measure",
+       x = "Measure",
+       
+       y = "Percentage",
        fill = "Awareness") +
   coord_flip() +
-  theme_minimal()
+  theme_minimal()+
+  scale_fill_colorblind()
 
 # save data underlying the table ----------------------
 write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
