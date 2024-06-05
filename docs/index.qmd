@@ -15,9 +15,6 @@ The department oversees various initiatives, including ETH Net Zero activities, 
 
 The survey seeks to understand the current recognition and understanding of ETH Sustainability’s work and services. Specifically, it will explore how well the department's efforts are known among students, faculty, and staff, and how these stakeholders perceive and engage with its activities. Additionally, the survey will gather insights on potential strategies to enhance the department's visibility and improve stakeholder engagement. The findings will contribute to the ongoing efforts to integrate sustainability more deeply into the university’s culture and operations, ensuring that ETH Zurich continues to lead in sustainable development."
 license: "CC BY"
-citation: 
-  container-title: My Blog
-  url: https://www.example.com
 bibliography: references.bib
 csl: apa.csl
 format:
