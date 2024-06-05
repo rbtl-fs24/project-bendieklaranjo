@@ -63,7 +63,7 @@ compliance with climate change targets, there is limited information on
 the awareness levels and engagement of the ETH community with these
 initiatives.
 
-The survey seeks to understand the current recognition and understanding
+The survey seeks to understand the current awareness and understanding
 of ETH Sustainability’s work and services. Specifically, it will explore
 how well the department's efforts are known among members of the ETH
 domain, and how these stakeholders perceive and engage with its
@@ -78,11 +78,10 @@ To answer the main research question, three initial research questions
 are guiding the study:
 
 -   **RQ1:** What is the current level of awareness among ETH members
-    about the ETH Sustainability Department?
--   **RQ2:** What is the current level of awareness among ETH members
-    about the initiatives of the ETH Sustainability Department?
--   **RQ3:** What are the most effective information channels to
-    increase the visibility of the ETH ETH Sustainability Department?
+    about the ETH Sustainability Department and its work?
+-   **RQ2:** How visible is the work of the  ETH Sustainability Department?
+-   **RQ3:** What would  most effective information channels to
+    increase the visibility of the ETH?
 
 This research is exploratory and aims to set a precedent for future
 information diffusion.
@@ -112,8 +111,10 @@ potential strategies for enhancing the visibility and impact of the ETH
 Sustainability department.
 
 # Results
+In this sections the survey data is analysed to answer the initial research questions.
 
 ```{r setup, include=FALSE}
+#Load packages
 library(dplyr)
 library(DT)
 library(ggplot2)
@@ -127,25 +128,118 @@ library(scales)
 library(stringr)
 library(tidyverse)
 
-```
-
-## RQ1: What is the current level of awareness among ETH members about the ETH Sustainability Department?
-
-The study shows, that overall the visibility of the ETH Department for Sustainability is low. Among the participants only
-
-
-```{r}
+#Read file
 eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
 
+```
+
+## What is the current level of awareness among ETH members about the ETH Sustainability Department and its work?
+
+The study shows, that overall the awareness of the ETH Department for Sustainability is moderate. Among the participants 14 out of 21 participants had heard of it previous to the study. 
+
+Unabhängig von dieser Antwort, wurde in der Studie zudem untersucht, inwieweit die ETH member die inititiven des ETH departements kennen. Aus der Untersuchung geht hervor, dass die initiativen deutlich unbekannter als das Departement selbst sind. 
+
+As seen in @fig-initiatives, the Net Zero initiative is the most known (66% of participants heard of it), followed by the SDG Public Lecture Seties and the Sustainable Gastronomy Project (33% of participants heard of it respectively).
+
+```{r}
+#| label: fig-initiatives
+#| fig-cap: Awareness of the ETH Sustainability Department´s initiatives among ETH domain members.
+
+# data analysis --------------------------------------
+initiative_names <- c(
+  heard_eth_sus = "ETH Sustainability Department",
+  heard_net_zero = "ETH Net Zero",
+  heard_net_zero_day = "ETH Net Zero Day",
+  heard_air_travel = "Air Travel Project",
+  heard_sus_gastronomy = "Sustainable Gastronomy Project",
+  heard_sdg_lecture = "SDG Public Lectures"
+)
+
+awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
+  select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
+  pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Response") %>%
+  mutate(Initiative = recode(Initiative, !!!initiative_names)) %>%
+  group_by(Initiative, Response) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  mutate(Response = factor(Response, levels = c("Yes", "No", "N/A")))
+
+ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Response)) +
+  geom_bar(stat = "identity") +  # Keep the default stacking order
+  geom_text(aes(label = Count), position = position_stack(vjust = 0.5), color = "white") +  # Change text color to white
+  labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
+       x = "Initiative",
+       y = "Count",
+       fill = "Response") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(color = "black", angle = 0, hjust = 0.5, vjust = 0.5),
+    axis.title.x = element_text(margin = margin(t = 15))  # Increase margin at the top of the x-axis title
+  ) +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
+  scale_fill_colorblind()
+# Save the processed data to a CSV file
+write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
+
+```
+
+To explore how aware ETH members were of this initiative further questions were asked regarding specific ETH Net Zero measures. Specifically, participants were first asked to assess their familiarity with the Net Zero on a scale from "not familiar at all" to "very familiar" and then which of these measures they heard of. From @fig-netzeromeasures it is visible, that the "Decarbonised Campus" initiative is the most known.
+
+```{r}
+#| label: fig-netzeromeasures
+#| fig-cap: Awareness of Net Zero initiative among ETH domain members.
+
+## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
+
+# data analysis --------------------------------------
+measure_labels <- c(
+  heard_measure_dec_campus = "Decarbonised campus",
+  heard_measure_indirect_emissions = "Reduction of indirect emissions from electricity procurement and district heating",
+  heard_measure_living_lab = "Campus as a net-zero living lab",
+  heard_measure_bus_travel = "Emission-reduced business travel",
+  heard_measure_scope3 = "Scope 3 exploration",
+  heard_measure_procurement = "Emission-reduced procurement of goods, construction and services",
+  heard_measure_community_engage = "Communication and Community Engagement",
+  heard_measure_data_monitor = "Data Availability, Monitoring and Reporting",
+  heard_measure_expertise = "Strengthening Expertise in Sustainability and Ethics"
+)
+
+awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
+  select(starts_with("heard_measure_")) %>%
+  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
+  gather(key = "Measure", value = "Percentage") %>%
+  mutate(Measure = measure_labels[Measure])  # Use the labels defined earlier
+
+# results display as visualisation --------------------------------------
+
+ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Awareness of Net Zero Measures",
+       x = "Measure",
+       y = "Percentage",
+       fill = "Awareness") +
+  coord_flip() +
+  scale_y_continuous(labels = percent_format()) + 
+  scale_fill_colorblind()
+
+# save data underlying the table ----------------------
+write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
+```
+
+## How visible is the work of the  ETH Sustainability Department?
+
+While the work of the ETH sus, this is contrasted by the answers regarding the visibility of the department. While the participants group presented very high interest in sustainability and climate change mitigation and high support of an ETH-wide sustainability strategy, the visibility was rated as 2.40 on a scale from 0-not visible at all to 5-very visible.
+
+```{r}
 # Calculate summary statistics for familiarity with ETH Sustainability Department's work
-interest_sustainability_tbl <- eth_dep_sus_visibility_visual %>%
-  summarize(
-    count = n(),
-    mean = mean(interest_sustainability, na.rm = TRUE),
-    median = median(interest_sustainability, na.rm = TRUE),
-    sd = sd(interest_sustainability, na.rm = TRUE)
-  ) %>%
-  mutate(category = "Familiarity with ETH Sustainability Department's Work")
+
+# interest_sustainability_tbl <- eth_dep_sus_visibility_visual %>%
+#   summarize(
+#     count = n(),
+#     mean = mean(interest_sustainability, na.rm = TRUE),
+#     median = median(interest_sustainability, na.rm = TRUE),
+#     sd = sd(interest_sustainability, na.rm = TRUE)
+#   ) %>%
+#   mutate(category = "Personal interest in sustainability and climate change mitigation")
 
 importance_eth_strategy_tbl <- eth_dep_sus_visibility_visual %>%
   summarize(
@@ -167,14 +261,14 @@ vis_eth_sus_tbl <- eth_dep_sus_visibility_visual %>%
 
 # Combine the summary tables into a single data frame
 summary_table <- bind_rows(
-  interest_sustainability_tbl,
+  #interest_sustainability_tbl,
   importance_eth_strategy_tbl,
   vis_eth_sus_tbl
 ) %>%
   select(category, everything())
 
 # results display as visualisation --------------------------------------
-#| label: tbl-summary-personal
+#| label: tbl-interests
 #| tbl-cap: "Summary of participants attitude towards sustainability, an ETH wide sustainability strategy and the perceived visibility"
 summary_table %>%
   gt() %>%
@@ -195,107 +289,24 @@ summary_table %>%
   )
 
 # save data underlying the table ----------------------
-write_csv(interest_sustainability_tbl, "/cloud/project/data/final/interest_sustainability_summary.csv")
+#write_csv(interest_sustainability_tbl, "/cloud/project/data/final/interest_sustainability_summary.csv")
 write_csv(importance_eth_strategy_tbl, "/cloud/project/data/final/importance_eth_strategy_summary.csv")
 write_csv(vis_eth_sus_tbl, "/cloud/project/data/final/visibility_eth_sustainability_summary.csv")
 ```
 
+## What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
 
-## RQ2: What is the current level of awareness among ETH members about the initiatives of the ETH Sustainability Department?
+Um festzustellen, welcher INformationschannel am effektivsten ist, wird zunächst untersucht, wo die Participants von den jeweiligen initiativen gehört haben. 
 
-Awareness of ETH Sustainability Department and its initiatives
+In einem zweiten Schritt wurden die Teilnehmer gefragt, über welchen Informationskanal sie most likely von der Arbeit erfahren würden. 
+Es ist daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um festzustellen welches Medium für die Informationdiffusion besonders effektiv ist.
 
-```{r}
-## Which initiative is the most known?
-
-# data analysis --------------------------------------
-
-initiative_names <- c(
-  heard_eth_sus = "ETH Sustainability Department",
-  heard_net_zero = "ETH Net Zero",
-  heard_net_zero_day = "ETH Net Zero Day",
-  heard_air_travel = "Air Travel Project",
-  heard_sus_gastronomy = "Sustainable Gastronomy Project",
-  heard_sdg_lecture = "SDG Public Lectures"
-)
-
-awareness_dep_sus_ini <- eth_dep_sus_visibility_visual %>%
-  select(heard_eth_sus, heard_net_zero, heard_net_zero_day, heard_air_travel, heard_sus_gastronomy, heard_sdg_lecture) %>%
-  pivot_longer(cols = everything(), names_to = "Initiative", values_to = "Response") %>%
-  mutate(Initiative = recode(Initiative, !!!initiative_names)) %>%
-  group_by(Initiative, Response) %>%
-  summarise(Count = n(), .groups = 'drop') %>%
-  mutate(Response = factor(Response, levels = c("Yes", "No", "N/A")))
-
-# results display as visualisation --------------------------------------
-ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Response)) +
-  geom_bar(stat = "identity") +  # Keep the default stacking order
-  geom_text(aes(label = Count), position = position_stack(vjust = 0.5), color = "white") +  # Change text color to white
-  labs(title = "Awareness of ETH Sustainability Department and Net Zero Initiative",
-       x = "Initiative",
-       y = "Count",
-       fill = "Response") +
-  theme_minimal() 
-  theme(axis.text.x = element_text(color = "white", angle = 0, hjust = 0.5, vjust = 0.5)) +
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
-  scale_fill_colorblind()
-
-
-# save data underlying the table ----------------------
-write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
-```
-
-Among the initiatives, the Net Zero initiative is the most known. To explore how aware ETH members were of this intitiative further questions were asked regarding specific ETH Net Zero measures. Specifically, participants were first asked to assess their familiarity with the Net Zero on a scale from not familiar at all to very familiar and then they were asked which of these measures they heard of.
-
-### Awareness of Net Zero measures
-
-```{r}
-## What is the awareness of the Net Zero measures among the people that have heard of the Net Zero initiative?
-
-# data analysis --------------------------------------
-measure_labels <- c(
-  heard_measure_dec_campus = "Decarbonised campus",
-  heard_measure_indirect_emissions = "Reduction of indirect emissions from electricity procurement and district heating",
-  heard_measure_living_lab = "Campus as a net-zero living lab",
-  heard_measure_bus_travel = "Emission-reduced business travel",
-  heard_measure_scope3 = "Scope 3 exploration",
-  heard_measure_procurement = "Emission-reduced procurement of goods, construction and services",
-  heard_measure_community_engage = "Communication and Community Engagement",
-  heard_measure_data_monitor = "Data Availability, Monitoring and Reporting",
-  heard_measure_expertise = "Strengthening Expertise in Sustainability and Ethics"
-)
-
-# results display as visualisation --------------------------------------
-#| label: fig-awareness-netzero
-#| fig-cap: Awareness of Net Zero initiative among ETH domain members.
-awareness_net_zero_measures <- eth_dep_sus_visibility_visual %>%
-  select(starts_with("heard_measure_")) %>%
-  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
-  gather(key = "Measure", value = "Percentage") %>%
-  mutate(Measure = measure_labels[Measure])  # Use the labels defined earlier
-
-# Visualization: Plot awareness of Net Zero measures with colorblind palette
-ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = Percentage)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Awareness of Net Zero Measures",
-       x = "Measure",
-       y = "Percentage",
-       fill = "Awareness") +
-  coord_flip() +
-  scale_y_continuous(labels = percent_format()) + 
-  scale_fill_colorblind()
-
-# save data underlying the table ----------------------
-write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
-```
-
-## RQ3: What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
-
-According to the previous results, the Net Zero initiative is the most known and it can therefore be implied to be the most visible. Es ist daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um festzustellen welches Medium für die Informationdiffusion besonders effektiv ist.
 
 ### What is the most effective information channel?
 
 ```{r}
+#| label: fig-netzerochannel
+#| fig-cap: Information diffusion channel of Net Zero Initiative among ETH domain members.
 
 ## What information channel was the most effective?
 # data analysis --------------------------------------
@@ -308,8 +319,6 @@ net_zero_info_channel_count <- net_zero_learning %>%
   arrange(desc(n))
 
 # results display as visualisation --------------------------------------
-#| label: fig-netzero-measures
-#| fig-cap: Awareness of the measures included in the Net Zero Initiative among ETH domain members.
 ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
   geom_bar(stat = "identity", fill = "lightseagreen") +
   labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
@@ -325,11 +334,36 @@ Diese Information konnte nur durch die Teilnehmer beantwortet werden konnte, die
 
 ### What is the most promising information channel to increase the visibility?
 
+```{r}
+
+## What information channel was the most effective?
+# data analysis --------------------------------------
+net_zero_learning <- eth_dep_sus_visibility_visual %>%
+  filter(!is.na(learn_net_zero)) %>%
+  filter(heard_net_zero == "Yes")
+
+net_zero_info_channel_count <- net_zero_learning %>%
+  count(learn_net_zero) %>%
+  arrange(desc(n))
+
+# results display as visualisation --------------------------------------
+#| label: fig-netzerochannel2
+#| fig-cap: Awareness of the measures included in the Net Zero Initiative among ETH domain members.
+ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
+  geom_bar(stat = "identity", fill = "lightseagreen") +
+  labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
+       x = "Information Channel",
+       y = "Frequency") +
+  coord_flip()
+
+# save data underlying the table ----------------------
+write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
+```
 
 # Conclusions
-
-The study While the study is not representative, it confirms the
-Department's self-assessment that their visibility needs further increase.
+Zusammenfassend kann gesagt werden, dass die Arbeit des ETH Sustainibility Departments moderat sichtbar ist, jedoch als Einheit nicht visible sind. Das zeigt sich unter anderem daran, dass einige Initiativen mehr Bekanntheit haben, als das Department selbst. Es lässt sich daraus schliessen, dass die Arbeit des Departememts nicht mit den Urhebern in Verbindung gebracht werden.
+While the study is not representative, it confirms the Department's self-assessment that their visibility needs to further increase.
+Die Studie hat die folgenden Limitationen: Es handelt sich um eine nicht-repräsentative Studie, in der überproportional viele Studierende am Standort Hönggerberg mitgemacht haben. Es bleibt zu untersuchen, ob die results sich bei repräsentativer Zusammenstellung nach affiliation group und Arbeitsort ändern würden.
 
 
 # References
