@@ -1,20 +1,10 @@
 Measure,Percentage
-Decarbonised campus,0.5238095238095238
-"Reduction of indirect
-emissions from electricity
-procurement and district
-heating",0.2857142857142857
-"Campus as a net-zero living
-lab",0.2857142857142857
-"Emission-reduced business
-travel",0.38095238095238093
-Scope 3 exploration,0.09523809523809523
-"Emission-reduced procurement
-of goods, construction and
-services",0.14285714285714285
-"Communication and Community
-Engagement",0.09523809523809523
-"Data Availability, Monitoring
-and Reporting",0.14285714285714285
-"Strengthening Expertise in
-Sustainability and Ethics",0.09523809523809523
+heard_measure_dec_campus,0.5238095238095238
+heard_measure_indirect_emissions,0.2857142857142857
+heard_measure_living_lab,0.2857142857142857
+heard_measure_bus_travel,0.38095238095238093
+heard_measure_scope3,0.09523809523809523
+heard_measure_procurement,0.14285714285714285
+heard_measure_community_engage,0.09523809523809523
+heard_measure_data_monitor,0.14285714285714285
+heard_measure_expertise,0.09523809523809523

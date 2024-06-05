@@ -233,7 +233,7 @@ ggplot(data = awareness_dep_sus_ini_filtered, aes(x = Initiative, y = Count, fil
 write_csv(awareness_dep_sus_ini_filtered, "/cloud/project/data/final/awareness_department_initiatives_filtered.csv")
 ```
 
-Aus beiden figrues geht hervor, dass the "Net Zero initiative" is the most known (66% of participants heard of it), followed by the SDG Public Lecture Series and the Sustainable Gastronomy Project (33% of participants heard of it respectively).
+Aus beiden figrues (@fig-initiatives, @fig-yesinitiatives) geht hervor, dass the "Net Zero initiative" is the most known (66% of participants heard of it), followed by the SDG Public Lecture Series and the Sustainable Gastronomy Project (33% of participants heard of it respectively).
 
 To explore how aware ETH members were of this initiative further
 questions were asked regarding specific ETH Net Zero measures.
@@ -374,8 +374,7 @@ gehört haben.
 
 In einem zweiten Schritt wurden die Teilnehmer gefragt, über welchen
 Informationskanal sie most likely von der Arbeit erfahren würden. Es ist
-daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um
-festzustellen welches Medium für die Informationdiffusion besonders
+daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um festzustellen welches Medium für die Informationdiffusion besonders
 effektiv ist.
 
 ```{r}
@@ -406,37 +405,59 @@ write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_
 ```
 
 Diese Information konnte nur durch die Teilnehmer beantwortet werden
-konnte, die zumindest von der Net Zero initiative gehört haben. Daher
-wurden in einem letzten Schritt alle Teilnehmer gefragt, welcher Channel am geeignetsten wäre, um die Visibility des ETH Departments of
+konnte, die zumindest von der Net Zero initiative gehört haben.
+Daher wurden in einem letzten Schritt alle Teilnehmer gefragt, welcher Channel am geeignetsten wäre, um die Visibility des ETH Departments of
 Sustainability zu erhöhen. Laut @fig-generalchannel ist X the most promising.
-
-### What is the most promising information channel to increase the visibility?
 
 ```{r}
 #| label: fig-generalchannel
 #| fig-cap: Information diffusion channel considered most promising among ETH domain members.
 #| fig-align: left
 
-## What information channel was the most effective?
-# data analysis --------------------------------------
-net_zero_learning <- eth_dep_sus_visibility_visual %>%
-  filter(!is.na(learn_net_zero)) %>%
-  filter(heard_net_zero == "Yes")
+# Data analysis --------------------------------------
+channel_labels <- c(
+  notice_ETH_main_website = "ETH website",
+  notice_ETH_mailing_list = "ETH intranet",
+  notice_Advertisement_on_Campus = "advertisement on campus",
+  notice_ETH_Link_TV = "Advertisement on ETH-Link TV",
+  notice_Lectures_and_seminars = "lecture or seminar",
+  notice_Social_Media =" Social Media (e.g. ETH instagram account)"
+)
 
-net_zero_info_channel_count <- net_zero_learning %>%
-  count(learn_net_zero) %>%
-  arrange(desc(n))
+visibility_counts <- eth_dep_sus_visibility_visual %>%
+  select(starts_with("notice_")) %>%
+  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
+  gather(key = "Channel", value = "Percentage") %>%
+  mutate(Channel = recode(Channel, !!!channel_labels),
+         Channel = str_wrap(Channel, width = 30))
 
-# results display as visualisation --------------------------------------
-ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
-  geom_bar(stat = "identity", fill = "blue") +
-  labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
-       x = "Information Channel",
-       y = "Frequency") +
-  coord_flip()
+# Results display as visualization --------------------------------------
+ggplot(visibility_counts, aes(
+  x = reorder(Channel, -Percentage), 
+  y = Percentage)) +
+  geom_bar(stat = "identity", fill = "#2a9d8f", width = 0.8) +  # Adjust bar width and color
+  geom_text(aes(
+    label = scales::percent(Percentage, accuracy = 1)), 
+    hjust = -0.1, size = 3, color = "black") +  # Add percentage labels
+  labs(title = "Awareness of Net Zero Measures",
+       x = "Net Zero Measure",
+       y = "Percentage of Respondents Aware") +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent_format()) + 
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10, hjust = 1),
+    panel.grid.major = element_line(linewidth = 0.1, color = "gray80"),
+    panel.grid.minor = element_blank(),
+  )
 
-# save data underlying the table ----------------------
-write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
+# Save data underlying the table ----------------------
+write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
+
 ```
 
 # Conclusions

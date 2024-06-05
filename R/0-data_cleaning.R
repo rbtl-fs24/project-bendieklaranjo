@@ -83,6 +83,7 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   select(-matches("know_eth_sus_work", "learn_eth_sus"))
 
 ##Clean eth_dep_sus_visibility_cleaning
+
 ## Split the column into multiple columns based on comma as separator
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   separate(`notice_eth_sus_work`,
@@ -101,13 +102,12 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   ) %>%
   select(-`notice_eth_sus_work`)
 
-# Function to clean responses: if the response is not "Yes" or "No", set it to NA
+# Function 1 to clean responses: if the response is not "Yes" or "No", set it to NA
 clean_single_response <- function(response) {
   response <- str_trim(response)  # Trim whitespace
   ifelse(tolower(response) %in% c("yes", "no"), response, NA_character_)
 }
 
-# Columns to be cleaned
 columns_to_clean <- c(
   "heard_measure_dec_campus",
   "heard_measure_indirect_emissions",
@@ -131,55 +131,59 @@ eth_dep_sus_visibility_cleaning %>%
   select(all_of(columns_to_clean)) %>%
   summarise_all(~ sum(!. %in% c("Yes", "No", NA)))
 
+# Function 2 to clean "learn_"responses: if the response is not from list, set it to NA
+# Define the function to clean the columns
+clean_learning_sources <- function(data, columns) {
+  # Define the valid answers
+  valid_answers <- c(
+    "ETH website",
+    "ETH intranet",
+    "lecture or seminar",
+    "other students/colleagues",
+    "Polymesse or other faires"
+  )
+  
+  # Iterate over each specified column and clean it
+  for (col in columns) {
+    cat("Cleaning column:", col, "\n")
+    
+    # Clean the column only if it exists in the data frame
+    if (col %in% colnames(data)) {
+      cat("Column exists in the data frame.\n")
+      
+      # Clean the column
+      cleaned_col <- ifelse(data[[col]] %in% valid_answers, data[[col]], NA)
+      
+      # Check the unique values after cleaning
+      cat("Unique values after cleaning:", unique(cleaned_col), "\n")
+      
+      # Assign the cleaned column back to the data frame
+      data[[col]] <- cleaned_col
+    } else {
+      cat("Column does not exist in the data frame.\n")
+    }
+  }
+  
+  return(data)
+}
+
+# Define the columns to clean
+learn_columns <- c(
+  "learn_net_zero",
+  "learn_net_zero_day",
+  "learn_air_travel",
+  "learn_sus_gastronomy",
+  "learn_sdg_lecture"
+)
+
+# Clean the data
+eth_dep_sus_visibility_cleaning <- clean_learning_sources(eth_dep_sus_visibility_cleaning, learn_columns)
+
 #----------------------------------------------------------------------
 # Inspect the cleaned data
 glimpse(eth_dep_sus_visibility_cleaning)
 
 # Store data
 eth_dep_sus_visibility_processed <- eth_dep_sus_visibility_cleaning
+print(eth_dep_sus_visibility_processed)
 write_csv(eth_dep_sus_visibility_processed, "data/processed/eth_dep_sus_visibility_processed.csv")
-
-
-#----------------------------------------------------------------------
-# ##Subset the data for interest in climate change mitigation
-# 
-# interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
-# eth_dep_sus_visibility_cleaning$Interest <- factor(eth_dep_sus_visibility_cleaning$interest_sustainability, levels = 1:6, labels = interest_labels)
-# 
-# total_responses <- nrow(eth_dep_sus_visibility_cleaning)
-# 
-# interest_percent <- eth_dep_sus_visibility_cleaning %>%
-#   count(Interest) %>%
-#   mutate(Percentage = n / total_responses * 100) %>%
-#   complete(Interest = interest_labels, fill = list(n = 0, Percentage = 0))
-# 
-# ##Subset the data for importance of ETH-wide sustainability strategy
-# 
-# importance_labels <- c("Not important", "Slightly important", "Moderately important", "Neutral", "Important", "Very important")
-# eth_dep_sus_visibility_cleaning$ImportanceStrategyt <- factor(eth_dep_sus_visibility_cleaning$importance_eth_strategy, levels = 1:6, labels = importance_labels)
-# total_responses <- nrow(eth_dep_sus_visibility_cleaning)
-# 
-# importance_percent <- eth_dep_sus_visibility_cleaning %>%
-#   count(ImportanceStrategyt) %>%
-#   mutate(Percentage = n / total_responses * 100) %>%
-#   complete(ImportanceStrategyt = importance_labels, fill = list(n = 0, Percentage = 0))
-# 
-# ##Subset the data for interest in climate change mitigation
-# 
-# interest_labels <- c("Not interested at all", "Slightly interested", "Moderately interested", "Neutral", "Interested", "Very interested")
-# eth_dep_sus_visibility_cleaning$Interest <- factor(eth_dep_sus_visibility_cleaning$interest_sustainability, levels = 1:6, labels = interest_labels)
-# 
-# interest_percent <- eth_dep_sus_visibility_cleaning %>%
-#   count(Interest) %>%
-#   mutate(Percentage = n / total_responses * 100) %>%
-#   complete(Interest = interest_labels, fill = list(n = 0, Percentage = 0))
-# 
-# #Subset the data for interest in climate change mitigation
-# 
-# visibility_labels <- c("Not visible at all", "Slightly visible", "Moderately visible", "Neutral", "Visible", "Very visible")
-# eth_dep_sus_visibility_cleaning$Visibility_general <- factor(eth_dep_sus_visibility_cleaning$vis_eth_sus_work, levels = 1:6, labels = visibility_labels)
-# vis_general_percent <- eth_dep_sus_visibility_cleaning %>%
-#   count(Visibility_general) %>%
-#   mutate(Percentage = n / total_responses * 100) %>%
-#   complete(Visibility_general = visibility_labels, fill = list(n = 0, Percentage = 0))
-
