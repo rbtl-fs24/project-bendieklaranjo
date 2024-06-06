@@ -79,11 +79,14 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   relocate(date, .before = time)
 
 ##Elimination of columns with high proportion of missing values (more than 50%)
-# threshold <- 0.5
+eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+  select(-c(know_eth_sus_work, learn_eth_sus))
+
+# threshold <- 0.7
 # for (col in names(eth_dep_sus_visibility_cleaning)) {
 #   # Calculate the proportion of missing values for the current column
 #   missing_proportion <- sum(is.na(eth_dep_sus_visibility_cleaning[[col]])) / nrow(eth_dep_sus_visibility_cleaning)
-#   
+# 
 #   # Check if the proportion exceeds the threshold
 #   if (missing_proportion > threshold) {
 #     # If the proportion exceeds the threshold, remove the column
@@ -91,9 +94,8 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
 #       select(-{{col}})
 #   }
 # }
-
-# Check the resulting dataframe
-glimpse(eth_dep_sus_visibility_cleaning)
+# # Check the resulting dataframe
+# glimpse(eth_dep_sus_visibility_cleaning)
 
 
 ##Clean eth_dep_sus_visibility_cleaning

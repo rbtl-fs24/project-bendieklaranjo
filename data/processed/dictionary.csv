@@ -1,0 +1,48 @@
+variable_name,description
+id,Participant ID
+date,Date of participation in online survey
+Timestamp,Time of submission of online survey
+consent,Agreement to data collection policy and study participation-
+affiliation,The respondent's affiliation within ETH Zurich.
+group,The primary group the respondent belongs to or identifies with at ETH Zurich.
+work_location,The primary location where the respondent usually works.
+heard_eth_sus,Whether the respondent has heard of the ETH Sustainability Department.
+heard_net_zero,Whether the respondent has heard of the ETH Net Zero initiative.
+know_net_zero_scope,The respondent's familiarity with the scope of the ETH Net Zero initiative.
+heard_measure_dec_campus,Whether the respondent has heard of the 'Decarbonised campus' measure under the ETH Net Zero initiative.
+heard_measure_indirect_emissions,Whether the respondent has heard of the 'Reduction of indirect emissions from electricity procurement and district heating' measure.
+heard_measure_living_lab,Whether the respondent has heard of the 'Campus as a net-zero living lab' measure.
+heard_measure_bus_travel,Whether the respondent has heard of the 'Emission-reduced business travel' measure.
+heard_measure_scope3,Whether the respondent has heard of the 'Scope 3 exploration' measure.
+heard_measure_procurement,Whether the respondent has heard of the 'Emission-reduced procurement of goods and services' measure.
+heard_measure_community_engage,Whether the respondent has heard of the 'Communication and Community Engagement' measure.
+heard_measure_data_monitor,Whether the respondent has heard of the 'Data Availability
+heard_measure_expertise,Whether the respondent has heard of the 'Strengthening Expertise in Sustainability and Ethics' measure.
+learn_net_zero,The primary source from which the respondent learned about the ETH Net Zero initiative.
+heard_net_zero_day,Whether the respondent has heard of the Net Zero Day on 28 May 2024 at ETH.
+learn_net_zero_day,The primary source from which the respondent learned about the Net Zero Day.
+heard_air_travel,Whether the respondent has heard of the Air Travel Project.
+know_air_travel_scope,The respondent's familiarity with the scope of the Air Travel Project.
+learn_air_travel,The primary source from which the respondent learned about the Air Travel initiative.
+heard_sus_gastronomy,Whether the respondent has heard of the Sustainable Gastronomy Project.
+know_sus_gastronomy_scope,The respondent's familiarity with the scope of the Sustainable Gastronomy Project.
+learn_sus_gastronomy,The primary source from which the respondent learned about the Sustainable Gastronomy Project.
+heard_sdg_lecture,Whether the respondent has heard about the Sustainable Development Goals (SDG) Public Lecture Series.
+attended_sdg_lecture,Whether the respondent has ever attended a lecture from the SDG Public Lecture Series.
+learn_sdg_lecture,The primary source from which the respondent learned about the SDG Public Lecture Series.
+fam_eth_recycling,The respondent's familiarity with the ETH waste recycling concept.
+know_recycling_hubs,Whether the respondent knows there are Recycling Hubs located on the ETH campus.
+locate_recycling_hubs,Whether the respondent knows where the Recycling Hubs are located on the ETH campus.
+learn_recycling_hubs,The primary source from which the respondent learned about the Recycling Hubs.
+interest_sustainability,The respondent's level of interest in sustainability and climate change mitigation.
+importance_eth_strategy,The respondent's perception of the importance of an ETH-wide sustainability strategy.
+vis_eth_sus_work,The respondent's assessment of the visibility of the work of the ETH Sustainability Department.
+notice_ETH_main_website,The ETH main website is where the respondent is most likely to notice the ETH Sustainability Department's work.
+notice_ETH_mailing_list,The ETH mailing list is where the respondent is most likely to notice the ETH Sustainability Department's work.
+notice_Advertisement_on_Campus,Advertisement on campus the respondent is most likely to notice the ETH Sustainability Department's work.
+notice_ETH_Link_TV,The advertisment on the ETH-Link TV is where the respondent is most likely to notice the ETH Sustainability Department's work.
+notice_Lectures_and_seminars,Lectures and seminars is where the respondent is most likely to notice the ETH Sustainability Department's work.
+notice_Social_Media,Social media is where the respondent is most likely to notice the ETH Sustainability Department's work.
+suggest_visibility,The respondent's suggestions for improving the visibility of the ETH Sustainability Department.
+comments,Any additional comments or questions provided by the respondent.
+email_info,The respondent's email address
