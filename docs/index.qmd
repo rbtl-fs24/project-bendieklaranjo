@@ -1,7 +1,7 @@
 ---
 title: "ETH Sustainability Department Visibility Survey"
 subtitle: "Final report of the Capstone Project "
-date: "05-30-2024"
+date: "06-06-2024"
 author:
   - name: Ana Bendiek Laranjo
     orcid: 0009-0006-1720-6031
