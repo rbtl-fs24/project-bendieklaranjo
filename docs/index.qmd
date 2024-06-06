@@ -148,11 +148,10 @@ eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep
 
 ### **What is the current level of awareness among ETH members about the ETH Sustainability Department and its work?**
 
-Among the participants 14 out of 21 participants had heard of it
-previous to the study. Unabhängig von dieser Antwort, wurde in der
-Studie zudem untersucht, inwieweit die ETH member die inititiven des ETH
-departements kennen. Die Ergebnisse sind in @fig-initiatives
-dargestellt.
+Among the participants, 14 out of 21 had heard of it prior to the study.
+Regardless of this response, the study also examined the extent to which
+ETH members are aware of the initiatives of the ETH department. The
+results are presented in @fig-initiatives.
 
 ```{r}
 #| label: fig-initiatives
@@ -199,9 +198,9 @@ write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department
 
 ```
 
-Um zu kontrastieren, ist in @fig-yesinitiatives dargestellt, wie bekannt
-die Initiativen unter den Leuten sind, die angegeben haben, die Arbeit
-des Departements zu kennen.
+In contrast, @fig-yesinitiatives shows how well-known the initiatives
+are among people who indicated being familiar with the department's
+work.
 
 ```{r}
 #| label: fig-yesinitiatives
@@ -239,19 +238,19 @@ ggplot(data = awareness_dep_sus_ini_filtered, aes(x = Initiative, y = Count, fil
 write_csv(awareness_dep_sus_ini_filtered, "/cloud/project/data/final/awareness_department_initiatives_filtered.csv")
 ```
 
-Aus beiden figrues (@fig-initiatives, @fig-yesinitiatives) geht hervor,
-dass the "Net Zero initiative" is the most known (66% of participants
-heard of it), followed by the SDG Public Lecture Series and the
-Sustainable Gastronomy Project (33% of participants heard of it
-respectively).
+From both figures (@fig-initiatives, @fig-yesinitiatives) , it emerges
+that the "Net Zero initiative" is the most recognized (66% of
+participants had heard of it), followed by the SDG Public Lecture Series
+and the Sustainable Gastronomy Project (33% of participants had heard of
+them, respectively).
 
-To explore how aware ETH members were of this initiative further
-questions were asked regarding specific ETH Net Zero measures.
-Specifically, participants were first asked to assess their familiarity
-with the Net Zero on a scale from "not familiar at all" to "very
-familiar" and then which of these measures they heard of. From
-@fig-netzeromeasures it is visible, that the "Decarbonized Campus"
-initiative is the most known.
+To further explore the awareness of ETH members regarding this
+initiative, additional questions were asked regarding specific ETH Net
+Zero measures. Specifically, participants were initially asked to assess
+their familiarity with Net Zero on a scale from "not familiar at all" to
+"very familiar," and then which of these measures they had heard of.
+@fig-netzeromeasures illustrates that the "Decarbonized Campus"
+initiative is the most recognized.
 
 ```{r}
 #| label: fig-netzeromeasures
@@ -309,13 +308,12 @@ write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_
 
 ### How visible is the work of the ETH Sustainability Department?
 
-In this section, the responses regarding the visibility of the
-department were analyzed. While the participant group expressed "very
-high interest" in sustainability and climate change mitigation and
-strong support for an ETH-wide sustainability strategy, the visibility
-was rated at 2.40 on a scale from 0 (not visible at all) to 5 (very
-visible). The statistical analysis of the results is presented in
-@tbl-interests.
+This section analyzes the department's visibility responses. While the
+participant group expressed "very high interest" in sustainability and
+climate change mitigation and strong support for an ETH-wide
+sustainability strategy,visibility was rated at 2.40 on a scale from 0
+(not visible at all) to 5 (very visible). The statistical analysis of
+the results is presented in @tbl-interests.
 
 ```{r}
 #| label: tbl-interests
