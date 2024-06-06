@@ -149,9 +149,9 @@ eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep
 ### **What is the current level of awareness among ETH members about the ETH Sustainability Department and its work?**
 
 Among the participants, 14 out of 21 had heard of it prior to the study.
-Regardless of this response, the study also examined the extent to which
-ETH members are aware of the initiatives of the ETH department. The
-results are presented in @fig-initiatives.
+Furthermore, the study also examined the extent to which ETH members are
+aware of the initiatives of the ETH department. The results are
+presented in @fig-initiatives.
 
 ```{r}
 #| label: fig-initiatives
