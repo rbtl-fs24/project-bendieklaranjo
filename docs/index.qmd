@@ -293,7 +293,7 @@ ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = P
   scale_y_continuous(labels = percent_format()) + 
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 14),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     axis.text.x = element_text(size = 10),
@@ -421,13 +421,13 @@ visibility_counts_long <- visibility_counts_long %>%
 # Visualization: Bar plot
 ggplot(visibility_counts_long, aes(y = reorder(Channel, Count), x = Count, fill = Channel)) +
   geom_bar(stat = "identity") +
-  geom_text(aes(label = Count), hjust = 1.1, color = "black", size = 3) +  # Add count labels
-  labs(title = "Visibility of Channels",
+  geom_text(aes(label = Count), hjust = 1.1, color = "black", size = 3) + 
+  labs(title = "Most Promising Information Channels for \nETH Sustainability Department Visibility",
        x = "Count",
        y = "Channel") +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 14),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     axis.text.x = element_text(size = 10),
@@ -470,7 +470,7 @@ net_zero_info_channel_count <- net_zero_learning %>%
 # results display as visualisation --------------------------------------
 ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = n)) +
   geom_bar(stat = "identity", fill = "black") +
-  labs(title = "Most Important Information Channel for Learning about ETH Net Zero",
+  labs(title = "Most Important Information Channels for \nLearning about ETH Net Zero",
        x = "Information Channel",
        y = "Count") +
   coord_flip()
