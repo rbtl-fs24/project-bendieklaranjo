@@ -79,28 +79,70 @@ eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
   relocate(date, .before = time)
 
 ##Elimination of columns with high proportion of missing values (more than 50%)
-eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
-  select(-matches("know_eth_sus_work", "learn_eth_sus"))
+# threshold <- 0.5
+# for (col in names(eth_dep_sus_visibility_cleaning)) {
+#   # Calculate the proportion of missing values for the current column
+#   missing_proportion <- sum(is.na(eth_dep_sus_visibility_cleaning[[col]])) / nrow(eth_dep_sus_visibility_cleaning)
+#   
+#   # Check if the proportion exceeds the threshold
+#   if (missing_proportion > threshold) {
+#     # If the proportion exceeds the threshold, remove the column
+#     eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+#       select(-{{col}})
+#   }
+# }
+
+# Check the resulting dataframe
+glimpse(eth_dep_sus_visibility_cleaning)
+
 
 ##Clean eth_dep_sus_visibility_cleaning
 
 ## Split the column into multiple columns based on comma as separator
+# Set all values in newly created columns to FALSE
+# Set all values in the newly created columns to FALSE
+# Set all values in the newly created columns to FALSE
 eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
-  separate(`notice_eth_sus_work`,
-           into = c("notice_ETH_main_website", "notice_ETH_mailing_list", "notice_Advertisement_on_Campus", "notice_ETH_Link_TV", "notice_Lectures_and_seminars", "notice_Social_Media"),
-           sep = ",",
-           remove = FALSE,
-           fill = "right") %>%
   mutate(
-    # Convert to boolean columns
-    notice_ETH_main_website = !is.na(notice_ETH_main_website),
-    notice_ETH_mailing_list = !is.na(notice_ETH_mailing_list),
-    notice_Advertisement_on_Campus = !is.na(notice_Advertisement_on_Campus),
-    notice_ETH_Link_TV = !is.na(notice_ETH_Link_TV),
-    notice_Lectures_and_seminars = !is.na(notice_Lectures_and_seminars),
-    notice_Social_Media = !is.na(notice_Social_Media)
-  ) %>%
-  select(-`notice_eth_sus_work`)
+    notice_ETH_main_website = FALSE,
+    notice_ETH_mailing_list = FALSE,
+    notice_Advertisement_on_Campus = FALSE,
+    notice_ETH_Link_TV = FALSE,
+    notice_Lectures_and_seminars = FALSE,
+    notice_Social_Media = FALSE
+  )
+
+# Loop through the notice_eth_sus_work column
+for (row in seq(nrow(eth_dep_sus_visibility_cleaning))) {
+  # Check if the value in notice_eth_sus_work is not missing
+  if (!is.na(eth_dep_sus_visibility_cleaning$notice_eth_sus_work[row])) {
+    # Split the values in the notice_eth_sus_work column
+    channels <- str_split(eth_dep_sus_visibility_cleaning$notice_eth_sus_work[row], ", ")[[1]]
+    
+    # Set TRUE in respective columns based on the channels mentioned
+    for (channel in channels) {
+      channel <- str_trim(channel)
+      if (channel == "ETH main website") {
+        eth_dep_sus_visibility_cleaning$notice_ETH_main_website[row] <- TRUE
+      } else if (channel == "ETH mailing list") {
+        eth_dep_sus_visibility_cleaning$notice_ETH_mailing_list[row] <- TRUE
+      } else if (channel == "Advertisement on Campus") {
+        eth_dep_sus_visibility_cleaning$notice_Advertisement_on_Campus[row] <- TRUE
+      } else if (channel == "Advertisement on ETH-Link TV") {
+        eth_dep_sus_visibility_cleaning$notice_ETH_Link_TV[row] <- TRUE
+      } else if (channel == "Lectures and seminars") {
+        eth_dep_sus_visibility_cleaning$notice_Lectures_and_seminars[row] <- TRUE
+      } else if (channel == "Social Media (e.g. ETH instagram account)") {
+        eth_dep_sus_visibility_cleaning$notice_Social_Media[row] <- TRUE
+      }
+    }
+  }
+}
+
+# Remove the original notice_eth_sus_work column
+eth_dep_sus_visibility_cleaning <- eth_dep_sus_visibility_cleaning %>%
+  select(-notice_eth_sus_work)
+
 
 # Function 1 to clean responses: if the response is not "Yes" or "No", set it to NA
 clean_single_response <- function(response) {

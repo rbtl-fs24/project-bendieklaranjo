@@ -144,12 +144,13 @@ eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep
 
 ```
 
-## What is the current level of awareness among ETH members about the ETH Sustainability Department and its work?
+### **What is the current level of awareness among ETH members about the ETH Sustainability Department and its work?**
 
 Among the participants 14 out of 21 participants had heard of it
 previous to the study. Unabhängig von dieser Antwort, wurde in der
-Studie zudem untersucht, inwieweit die ETH member die inititiven des ETH departements kennen. Die Ergebnisse sind in @fig-initiatives dargestellt.
-
+Studie zudem untersucht, inwieweit die ETH member die inititiven des ETH
+departements kennen. Die Ergebnisse sind in @fig-initiatives
+dargestellt.
 
 ```{r}
 #| label: fig-initiatives
@@ -195,7 +196,10 @@ ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Respo
 write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
 
 ```
-Um zu kontrastieren, ist in @fig-yesinitiatives dargestellt, wie bekannt die Initiativen unter den Leuten sind, die angegeben haben, die Arbeit des Departements zu kennen.
+
+Um zu kontrastieren, ist in @fig-yesinitiatives dargestellt, wie bekannt
+die Initiativen unter den Leuten sind, die angegeben haben, die Arbeit
+des Departements zu kennen.
 
 ```{r}
 #| label: fig-yesinitiatives
@@ -233,7 +237,11 @@ ggplot(data = awareness_dep_sus_ini_filtered, aes(x = Initiative, y = Count, fil
 write_csv(awareness_dep_sus_ini_filtered, "/cloud/project/data/final/awareness_department_initiatives_filtered.csv")
 ```
 
-Aus beiden figrues (@fig-initiatives, @fig-yesinitiatives) geht hervor, dass the "Net Zero initiative" is the most known (66% of participants heard of it), followed by the SDG Public Lecture Series and the Sustainable Gastronomy Project (33% of participants heard of it respectively).
+Aus beiden figrues (@fig-initiatives, @fig-yesinitiatives) geht hervor,
+dass the "Net Zero initiative" is the most known (66% of participants
+heard of it), followed by the SDG Public Lecture Series and the
+Sustainable Gastronomy Project (33% of participants heard of it
+respectively).
 
 To explore how aware ETH members were of this initiative further
 questions were asked regarding specific ETH Net Zero measures.
@@ -297,10 +305,15 @@ ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = P
 write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
 ```
 
-## How visible is the work of the ETH Sustainability Department?
+### How visible is the work of the ETH Sustainability Department?
 
-In this section the answers regarding the visibility of
-the department were analysed. While the participants group presented "very high interest" in sustainability and climate change mitigation and high support of an ETH-wide sustainability strategy, the visibility was rated as 2.40 on a scale from 0-not visible at all to 5-very visible. The statistical analysis of the results is presented in @tbl-interests.
+In this section, the responses regarding the visibility of the
+department were analyzed. While the participant group expressed "very
+high interest" in sustainability and climate change mitigation and
+strong support for an ETH-wide sustainability strategy, the visibility
+was rated at 2.40 on a scale from 0 (not visible at all) to 5 (very
+visible). The statistical analysis of the results is presented in
+@tbl-interests.
 
 ```{r}
 #| label: tbl-interests
@@ -366,16 +379,78 @@ write_csv(importance_eth_strategy_tbl, "/cloud/project/data/final/importance_eth
 write_csv(vis_eth_sus_tbl, "/cloud/project/data/final/visibility_eth_sustainability_summary.csv")
 ```
 
-## What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
+### What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
 
-Um festzustellen, welcher INformationschannel am effektivsten ist, wird
-zunächst untersucht, wo die Participants von den jeweiligen initiativen
-gehört haben.
+Participants were asked about the information channels through which
+they would most likely learn about the department's work. According to
+@fig-generalchannel, the ETH mailinglist and advertisement on campus are
+the most promising.
 
-In einem zweiten Schritt wurden die Teilnehmer gefragt, über welchen
-Informationskanal sie most likely von der Arbeit erfahren würden. Es ist
-daher wichtig zu sehen, wo die Teilnehmer die Informationen erhalten, um festzustellen welches Medium für die Informationdiffusion besonders
-effektiv ist.
+```{r}
+#| label: fig-generalchannel
+#| fig-cap: Information diffusion channel considered most promising among ETH domain members.
+#| fig-align: left
+
+# Data analysis --------------------------------------
+# Data preparation
+visibility_data <- eth_dep_sus_visibility_visual %>%
+  select(starts_with("notice_"))
+
+# Count the number of TRUE values for each channel
+visibility_counts <- visibility_data %>%
+  summarise_all(~sum(. == TRUE, na.rm = TRUE))
+
+# Reshape the data for plotting
+visibility_counts_long <- visibility_counts %>%
+  pivot_longer(cols = everything(), names_to = "Channel", values_to = "Count")
+
+# Label mapping for the channels
+channel_labels <- c(
+  notice_ETH_main_website = "ETH website",
+  notice_ETH_mailing_list = "ETH mailing list",
+  notice_Advertisement_on_Campus = "Advertisement on campus",
+  notice_ETH_Link_TV = "Advertisement on ETH-Link TV",
+  notice_Lectures_and_seminars = "Lecture or seminar",
+  notice_Social_Media = "Social Media (e.g. ETH Instagram account)"
+)
+
+# Apply the channel labels
+visibility_counts_long <- visibility_counts_long %>%
+  mutate(Channel = recode(Channel, !!!channel_labels))
+
+# Visualization: Bar plot
+ggplot(visibility_counts_long, aes(y = reorder(Channel, Count), x = Count, fill = Channel)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Count), hjust = 1.1, color = "black", size = 3) +  # Add count labels
+  labs(title = "Visibility of Channels",
+       x = "Count",
+       y = "Channel") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10, hjust = 1),
+    legend.position = "none"  # Remove the legend
+  ) +
+  scale_fill_manual(values = c(
+    "ETH website" = "#A6CEE3",
+    "ETH intranet" = "#1F78B4",
+    "Advertisement on campus" = "#B2DF8A",
+    "Advertisement on ETH-Link TV" = "#33A02C",
+    "Lecture or seminar" = "#FB9A99",
+    "Social Media (e.g. ETH Instagram account)" = "#E31A1C"
+  ))
+
+# Save data underlying the table
+write_csv(visibility_counts_long, "/cloud/project/data/final/visibility_counts.csv")
+```
+
+This is contrasted by the most mentioned information source for the ETH
+Net Zero initiative is "other students/colleagues." According to
+@fig-netzerochannel most participants heard of the ETH Net Zero
+initiative through other students and colleagues.
 
 ```{r}
 #| label: fig-netzerochannel
@@ -404,75 +479,36 @@ ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = 
 write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
 ```
 
-Diese Information konnte nur durch die Teilnehmer beantwortet werden
-konnte, die zumindest von der Net Zero initiative gehört haben.
-Daher wurden in einem letzten Schritt alle Teilnehmer gefragt, welcher Channel am geeignetsten wäre, um die Visibility des ETH Departments of
-Sustainability zu erhöhen. Laut @fig-generalchannel ist X the most promising.
-
-```{r}
-#| label: fig-generalchannel
-#| fig-cap: Information diffusion channel considered most promising among ETH domain members.
-#| fig-align: left
-
-# Data analysis --------------------------------------
-channel_labels <- c(
-  notice_ETH_main_website = "ETH website",
-  notice_ETH_mailing_list = "ETH intranet",
-  notice_Advertisement_on_Campus = "advertisement on campus",
-  notice_ETH_Link_TV = "Advertisement on ETH-Link TV",
-  notice_Lectures_and_seminars = "lecture or seminar",
-  notice_Social_Media =" Social Media (e.g. ETH instagram account)"
-)
-
-visibility_counts <- eth_dep_sus_visibility_visual %>%
-  select(starts_with("notice_")) %>%
-  summarise_all(~sum(. == "Yes", na.rm = TRUE) / n()) %>%
-  gather(key = "Channel", value = "Percentage") %>%
-  mutate(Channel = recode(Channel, !!!channel_labels),
-         Channel = str_wrap(Channel, width = 30))
-
-# Results display as visualization --------------------------------------
-ggplot(visibility_counts, aes(
-  x = reorder(Channel, -Percentage), 
-  y = Percentage)) +
-  geom_bar(stat = "identity", fill = "#2a9d8f", width = 0.8) +  # Adjust bar width and color
-  geom_text(aes(
-    label = scales::percent(Percentage, accuracy = 1)), 
-    hjust = -0.1, size = 3, color = "black") +  # Add percentage labels
-  labs(title = "Awareness of Net Zero Measures",
-       x = "Net Zero Measure",
-       y = "Percentage of Respondents Aware") +
-  coord_flip() +
-  scale_y_continuous(labels = scales::percent_format()) + 
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.title.x = element_text(size = 12),
-    axis.title.y = element_text(size = 12),
-    axis.text.x = element_text(size = 10),
-    axis.text.y = element_text(size = 10, hjust = 1),
-    panel.grid.major = element_line(linewidth = 0.1, color = "gray80"),
-    panel.grid.minor = element_blank(),
-  )
-
-# Save data underlying the table ----------------------
-write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
-
-```
-
 # Conclusions
 
-Zusammenfassend können die folgenden conclusions drawn:
+In summary, the following conclusions can be drawn:
 
--   The awareness of the ETH Department for Sustainability is moderate.
+-   The awareness of the ETH Department for Sustainability among
+    participants is moderate, indicating potential opportunities for
+    enhancing outreach efforts.
 
--   Die bekannteste Initiative is die Net Zero Initiative
+-   The Net Zero Initiative was identified as the most well-known
+    initiative within the ETH community. Participants heard of the
+    initiative mainly through other students and colleagues.
 
--   Die Visibility des Departments wird als gering eingeschätzt.
+-   Despite the importance of sustainability, the department's
+    visibility could be better, indicating a need for improved
+    communication and promotional strategies.
 
--   Das Medium X wird als das effektivste für die Diffusion der Infos eingeschätzt.
+-   Among the various information diffusion channels considered, the ETH
+    mailing list and advertising the work on campus are the most
+    effective for disseminating information about the department's
+    activities and initiatives, highlighting its potential for
+    increasing visibility and engagement.
 
-Die Studie hat die folgenden Limitationen: Es handelt sich um eine nicht-repräsentative Studie, in der überproportional viele Studierende am Standort Hönggerberg mitgemacht haben. Es bleibt zu untersuchen, ob die results sich bei repräsentativer Zusammenstellung nach affiliation
-group und Arbeitsort ändern würden.
+However, it's important to acknowledge the study's limitations. Firstly,
+the sample size may not be representative, with more participants from
+the Hönggerberg campus than from other locations. Additionally, the
+study's scope primarily encompasses the perspectives of a specific
+demographic within the ETH community, potentially limiting its
+generalizability. Future research could explore the department's
+perceptions and awareness across diverse demographic groups and campuses
+to provide a more comprehensive understanding of its visibility and
+impact.
 
 # References
