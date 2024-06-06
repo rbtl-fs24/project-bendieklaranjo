@@ -89,8 +89,8 @@ are guiding the study:
 
 This project is part of the lecture series "151-8102-00L Research Beyond
 the Lab: Open Science and Research Methods for a Global Engineer" by
-Prod. Elizabeth Tilley and Lars Schöbitz. The research is exploratory
-and aims to set a precedent for future information diffusion.
+Prof. Elizabeth Tilley and Lars Schöbitz. The research is exploratory
+and aims to set a precedent for future effective information campaigns.
 
 # Methods
 
