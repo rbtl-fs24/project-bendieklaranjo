@@ -9,11 +9,14 @@ author:
     affiliation: 
       - name: ETH Zurich
         url: https://ethz.ch/de.html
-abstract: "This survey aims to assess the visibility and awareness of the ETH Sustainability department among ETH Zurich members. As the central hub for sustainability activities, ETH Sustainability is crucial in advancing sustainable development within the university and in broader society.
+abstract: > 
 
-The department oversees various initiatives, including ETH Net Zero activities, sustainability reporting, and various projects related to sustainable travel and gastronomy. Despite its pivotal role, there is limited information on the awareness levels and engagement of the ETH community with these initiatives.
+  This survey aims to assess the visibility and awareness of the ETH Sustainability department among ETH Zurich members. As the central hub  for sustainability activities, ETH Sustainability is crucial in advancing sustainable development within the university and in broader society.
+  <br>
+  The department oversees various initiatives, including ETH Net Zero activities, sustainability reporting, and various projects related to sustainable travel and gastronomy. Despite its pivotal role, there is limited information on the awareness levels and engagement of the ETH community with these initiatives.
+  <br>
+  The survey seeks to understand the current recognition and understanding of ETH Sustainability’s work and services. Specifically, it will explore how well the department's efforts are known among students, faculty, and staff, and how these stakeholders perceive and engage with its activities. Additionally, the survey will gather insights on potential strategies to enhance the department's visibility and improve stakeholder engagement. The findings will contribute to the ongoing efforts to integrate sustainability more deeply into the university’s culture and operations, ensuring that ETH Zurich continues to lead in sustainable development."
 
-The survey seeks to understand the current recognition and understanding of ETH Sustainability’s work and services. Specifically, it will explore how well the department's efforts are known among students, faculty, and staff, and how these stakeholders perceive and engage with its activities. Additionally, the survey will gather insights on potential strategies to enhance the department's visibility and improve stakeholder engagement. The findings will contribute to the ongoing efforts to integrate sustainability more deeply into the university’s culture and operations, ensuring that ETH Zurich continues to lead in sustainable development."
 license: "CC BY"
 bibliography: references.bib
 csl: apa.csl
@@ -142,7 +145,7 @@ library(stringr)
 library(tidyverse)
 
 #Read file
-eth_dep_sus_visibility_visual <- read_csv("/cloud/project/data/processed/eth_dep_sus_visibility_processed.csv")
+eth_dep_sus_visibility_visual <- read_csv(here::here("data/processed/eth_dep_sus_visibility_processed.csv"))
 
 ```
 
@@ -194,7 +197,7 @@ ggplot(data = awareness_dep_sus_ini, aes(x = Initiative, y = Count, fill = Respo
   scale_fill_colorblind()
 
 # save data underlying the table ----------------------
-write_csv(awareness_dep_sus_ini, "/cloud/project/data/final/awareness_department_initiatives.csv")
+write_csv(awareness_dep_sus_ini, here::here("data/final/awareness_department_initiatives.csv"))
 
 ```
 
@@ -235,7 +238,7 @@ ggplot(data = awareness_dep_sus_ini_filtered, aes(x = Initiative, y = Count, fil
   scale_fill_colorblind()
 
 # save data underlying the table ----------------------
-write_csv(awareness_dep_sus_ini_filtered, "/cloud/project/data/final/awareness_department_initiatives_filtered.csv")
+write_csv(awareness_dep_sus_ini_filtered, here::here("data/final/awareness_department_initiatives_filtered.csv"))
 ```
 
 From both figures (@fig-initiatives, @fig-yesinitiatives) , it emerges
@@ -303,7 +306,7 @@ ggplot(awareness_net_zero_measures, aes(x = reorder(Measure, -Percentage), y = P
   )
 
 # save data underlying the table ----------------------
-write_csv(awareness_net_zero_measures, "/cloud/project/data/final/awareness_net_zero_measures.csv")
+write_csv(awareness_net_zero_measures, here::here("data/final/awareness_net_zero_measures.csv"))
 ```
 
 ### How visible is the work of the ETH Sustainability Department?
@@ -375,8 +378,8 @@ summary_table %>%
 
 # save data underlying the table ----------------------
 #write_csv(interest_sustainability_tbl, "/cloud/project/data/final/interest_sustainability_summary.csv")
-write_csv(importance_eth_strategy_tbl, "/cloud/project/data/final/importance_eth_strategy_summary.csv")
-write_csv(vis_eth_sus_tbl, "/cloud/project/data/final/visibility_eth_sustainability_summary.csv")
+write_csv(importance_eth_strategy_tbl, here::here("data/final/importance_eth_strategy_summary.csv"))
+write_csv(vis_eth_sus_tbl, here::here("data/final/visibility_eth_sustainability_summary.csv"))
 ```
 
 ### What are the most effective information channels to increase the visibility of the ETH ETH Sustainability Department?
@@ -444,7 +447,7 @@ ggplot(visibility_counts_long, aes(y = reorder(Channel, Count), x = Count, fill 
   ))
 
 # Save data underlying the table
-write_csv(visibility_counts_long, "/cloud/project/data/final/visibility_counts.csv")
+write_csv(visibility_counts_long, here::here("data/final/visibility_counts.csv"))
 ```
 
 This is contrasted by the most mentioned information source for the ETH
@@ -476,7 +479,7 @@ ggplot(net_zero_info_channel_count, aes(x = fct_reorder(learn_net_zero, n), y = 
   coord_flip()
 
 # save data underlying the table ----------------------
-write_csv(net_zero_info_channel_count, "/cloud/project/data/final/net_zero_info_channel.csv")
+write_csv(net_zero_info_channel_count, here::here("data/final/net_zero_info_channel.csv"))
 ```
 
 # Conclusions
